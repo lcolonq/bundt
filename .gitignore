@@ -1,0 +1,6 @@
+.direnv
+.psc-ide-port
+main.js
+node_modules
+output/*
+dist/*
