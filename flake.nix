@@ -66,5 +66,10 @@
         default = bundt;
         inherit bundleAPI;
       };
+      overlay = self: super: {
+        bundt = {
+          inherit bundleAPI;
+        };
+      };
     };
 }
