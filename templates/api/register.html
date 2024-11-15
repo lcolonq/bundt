@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>LCOLONQ Elite Registration</title>
+        <link rel="icon" href="./assets/mrgreen.png">
+        <link rel="stylesheet" type="text/css" href="./main.css">
+        <script type="module">
+CONFIG_SUBST
+         globalThis.mode = 5;
+        </script>
+        <script type="module" src="./main.js"></script>
+    </head>
+    <body class="lcolonq-register">
+        <div id="lcolonq-register-container" class="lcolonq-invisible">
+            <div id="lcolonq-register-box">
+                <a id="lcolonq-register-link">click to register with twitch dot tuvalu</a>
+            </div>
+        </div>
+        <div id="lcolonq-registered-container" class="lcolonq-invisible">
+            <div id="lcolonq-registered-box">
+                <div id="lcolonq-registered-box-interior">
+                    registered!
+                    <div><span class="lcolonq-registered-fieldname">username:</span> <span id="lcolonq-registered-username"></span></div>
+                    <div><span class="lcolonq-registered-fieldname">password:</span> <span id="lcolonq-registered-password"></span></div>
+                </div>
+            </div>
+        </div>
+        <div id="lcolonq-register-error-container" class="lcolonq-invisible">
+            <div id="lcolonq-register-error-box">
+                <div>
+                    <p>some kind of error occured, unable to register</p>
+                    <p>bug clonk about it idk</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

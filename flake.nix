@@ -33,6 +33,22 @@
         srcs = [ "src" ];
       };
       bundt = purescript.bundle {};
+
+      bundleAPI = pkgs.stdenv.mkDerivation  {
+        name = "bundt-bundle-api";
+        src = ./.;
+        buildInputs = [
+          (purescript.command {})
+          pkgs.m4
+        ];
+        buildPhase = "
+          make deploy_api
+        ";
+        installPhase = ''
+          mkdir -p $out
+          cp -r dist/api/deploy/* $out/
+        '';
+      };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = [
@@ -48,6 +64,7 @@
       };
       packages.x86_64-linux = {
         default = bundt;
+        inherit bundleAPI;
       };
     };
 }

@@ -3,16 +3,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title>LCOLONQ Browser Source</title>
+        <title>The Button</title>
         <link rel="icon" href="./assets/mrgreen.png">
         <link rel="stylesheet" type="text/css" href="./main.css">
         <script type="module">
 CONFIG_SUBST
-         globalThis.mode = 2;
+         globalThis.mode = 4;
         </script>
         <script type="module" src="./main.js"></script>
     </head>
-    <body class="lcolonq-obs">
-        <canvas id="lcolonq-canvas"></canvas>
+    <body class="lcolonq-button-body">
+        <a id="lcolonq-button-link-green" class="lcolonq-button-link">
+            <img src="./assets/mrgreen.png" class="lcolonq-button" id="lcolonq-button-green" />
+        </a>
+        <a id="lcolonq-button-link-red" class="lcolonq-button-link">
+            <img src="./assets/mrred.png" class="lcolonq-button" id="lcolonq-button-red" />
+        </a>
     </body>
 </html>

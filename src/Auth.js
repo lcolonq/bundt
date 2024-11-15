@@ -30,16 +30,17 @@ function getFragmentQuery() {
 export const _getToken = (Just) => (Nothing) => (pair) => () => {
     const frag = getFragmentQuery();
     const token = frag.get("id_token");
-    if (token) {
-        document.cookie = `id_token=${token}; path=/; SameSite=Strict`;
-    }
-    let id_token = null;
+    document.location.hash = "";
+    // if (token) {
+    //     document.cookie = `id_token=${token}; path=/; SameSite=Strict`;
+    // }
+    // let id_token = null;
     let authnonce = null;
     for (let c of document.cookie.split("; ")) {
         const [k, v] = c.split("=");
-        if (k === "id_token") id_token = v;
-        else if (k === "authnonce") authnonce = v;
+        // if (k === "id_token") id_token = v;
+        if (k === "authnonce") authnonce = v;
     }
-    if (id_token && authnonce) return Just(pair(id_token)(authnonce));
+    if (token && authnonce) return Just(pair(token)(authnonce));
     return Nothing;
 };

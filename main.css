@@ -16,6 +16,10 @@ html, body {
     width: 100%;
 }
 
+.lcolonq-invisible {
+    visibility: hidden;
+}
+
 body.lcolonq-index {
     font-family: "Iosevka Comfy";
     font-weight: bold;
@@ -112,4 +116,108 @@ body.lcolonq-obs {
 
 .right {
     float: right;
+}
+
+body.lcolonq-button-body {
+    background-color: #eeeeee;
+    user-select: none;
+}
+
+.lcolonq-button {
+    position: absolute;
+    height: 90vh;
+    width: 40vw;
+    object-fit: fill;
+    image-rendering: pixelated;
+    border: dotted #888888;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+a.lcolonq-button-link :hover {
+    background-color: #cccccc;
+}
+
+a.lcolonq-button-link :active {
+    background-color: #aaaaaa;
+}
+
+#lcolonq-button-green {
+    left: 0px;
+}
+
+#lcolonq-button-red {
+    right: 0px;
+}
+
+#lcolonq-register-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+#lcolonq-register-box {
+    grid-row: 2;
+    grid-column: 2;
+    text-align: center;
+}
+
+#lcolonq-register-link {
+    color: white;
+    background-color: #6441a5;
+    border-radius: 0.5rem;
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#lcolonq-register-link:hover {
+    background-color: #533094;
+}
+
+#lcolonq-registered-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+#lcolonq-registered-box {
+    grid-row: 2;
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.lcolonq-registered-fieldname {
+    font-weight: bold;
+}
+
+#lcolonq-register-error-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+#lcolonq-register-error-box {
+    grid-row: 2;
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
 }

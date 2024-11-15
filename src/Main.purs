@@ -5,12 +5,14 @@ import Prelude
 import Audio as Audio
 import Auth (AuthInfo, authHeader, getToken, startTwitchAuth)
 import Config as Config
+import Data.String as String
 import Data.Array (head)
 import Data.Array as Array
 import Data.Foldable (fold)
 import Data.Maybe (Maybe(..))
 import Data.Traversable (for, for_)
 import Data.Tuple (Tuple(..))
+import Data.HTTP.Method (Method(..))
 import Effect (Effect)
 import Effect.Aff (Aff, launchAff_)
 import Effect.Class (class MonadEffect, liftEffect)
@@ -91,6 +93,24 @@ appendText parent s = do
 setText :: forall m. MonadEffect m => DOM.Element -> String -> m Unit
 setText e s = liftEffect $ DOM.Node.setTextContent s $ DOM.El.toNode e
 
+addClass :: forall m. MonadEffect m => String -> DOM.Element -> m Unit
+addClass c e = do
+  cl <- liftEffect $ DOM.El.classList e
+  _ <- liftEffect $ DOM.DTL.add cl c
+  pure unit
+
+removeClass :: forall m. MonadEffect m => String -> DOM.Element -> m Unit
+removeClass c e = do
+  cl <- liftEffect $ DOM.El.classList e
+  _ <- liftEffect $ DOM.DTL.remove cl c
+  pure unit
+
+toggleClass :: forall m. MonadEffect m => String -> DOM.Element -> m Unit
+toggleClass c e = do
+  cl <- liftEffect $ DOM.El.classList e
+  _ <- liftEffect $ DOM.DTL.toggle cl c
+  pure unit
+
 updateSubtitle :: Aff Unit
 updateSubtitle = do
   subtitle <- byId "lcolonq-subtitle"
@@ -107,8 +127,12 @@ checkAuth auth = do
     }
   resp
 
-mainHomepage :: Effect Unit
-mainHomepage = launchAff_ do
+mainApi :: Effect Unit
+mainApi = launchAff_ do
+  pure unit
+
+mainPubnix :: Effect Unit
+mainPubnix = launchAff_ do
   liftEffect $ log "hi"
   startModel
   marq <- byId "lcolonq-marquee"
@@ -125,7 +149,7 @@ mainHomepage = launchAff_ do
   updateSubtitle
   subtitle <- byId "lcolonq-subtitle"
   listen subtitle "click" \_ev -> do
-    startTwitchAuth
+    -- startTwitchAuth
     launchAff_ updateSubtitle
   
   for_ (Array.range 0 6) \i -> do
@@ -148,10 +172,59 @@ mainObs :: Effect Unit
 mainObs = launchAff_ do
   startModel
 
+buttonPress :: String -> Aff Unit
+buttonPress b = do
+  void $ fetch (Config.apiServer <> "/sentiment/" <> b)
+    { method: POST
+    }
+mainButton :: Effect Unit
+mainButton = launchAff_ do
+  liftEffect $ log "hello from button"
+  green <- byId "lcolonq-button-link-green"
+  listen green "click" \_ev -> do
+    liftEffect $ log "+2"
+    launchAff_ $ buttonPress "green"
+  red <- byId "lcolonq-button-link-red"
+  listen red "click" \_ev -> do
+    liftEffect $ log "-2"
+    launchAff_ $ buttonPress "red"
+
+mainRegister :: Effect Unit
+mainRegister = launchAff_ do
+  liftEffect $ log "hello from registration page"
+  link <- byId "lcolonq-register-link"
+  getToken >>= case _ of
+    Just a@(Tuple t n) -> do -- if there's an auth token in the fragment, ask the API to register us
+      { text: resp } <- fetch (Config.apiServer <> "/register")
+        { headers:
+          { "Authorization": authHeader a
+          }
+        }
+      r <- resp
+      case String.split (String.Pattern " ") r of
+        [user, pass] -> do
+          container <- byId "lcolonq-registered-container"
+          removeClass "lcolonq-invisible" container
+          fieldUsername <- byId "lcolonq-registered-username"
+          setText fieldUsername user
+          fieldPassword <- byId "lcolonq-registered-password"
+          setText fieldPassword pass
+        _ -> do
+          container <- byId "lcolonq-register-error-container"
+          removeClass "lcolonq-invisible" container
+    _ -> do -- otherwise, show the button to register
+      container <- byId "lcolonq-register-container"
+      removeClass "lcolonq-invisible" container
+      listen link "click" \_ev -> do
+        liftEffect $ log "register"
+        startTwitchAuth
+
 main :: Effect Unit
 main = case Config.mode of
-  0 -> mainHomepage
-  1 -> mainExtension
-  2 -> mainObs
-  -- 3 -> mainButton
+  0 -> mainApi
+  1 -> mainPubnix
+  2 -> mainExtension
+  3 -> mainObs
+  4 -> mainButton
+  5 -> mainRegister
   _ -> throw "unknown mode"
