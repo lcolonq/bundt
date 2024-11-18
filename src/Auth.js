@@ -45,16 +45,6 @@ export const _getToken = (Just) => (Nothing) => (pair) => () => {
     return Nothing;
 };
 
-export const _getSessionCookie = (Just) => (Nothing) => () => {
-    let cookie = null;
-    for (let c of document.cookie.split("; ")) {
-        const [k, v] = c.split("=");
-        if (k === "authelia_session") cookie = v;
-    }
-    if (cookie) return Just(cookie);
-    return Nothing;
-};
-
 export const _clearSessionCookie = () => {
     document.cookie = "authelia_session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
 };

@@ -3,7 +3,7 @@ module Main where
 import Prelude
 
 import Audio as Audio
-import Auth (AuthInfo, authHeader, getToken, startTwitchAuth, getSessionCookie, clearSessionCookie)
+import Auth (AuthInfo, authHeader, getToken, startTwitchAuth, clearSessionCookie)
 import Config as Config
 import Data.String as String
 import Data.Array (head)
@@ -232,8 +232,16 @@ mainMenu = launchAff_ do
 mainAuth :: Effect Unit
 mainAuth = launchAff_ do
   liftEffect $ log "hello from auth"
-  getSessionCookie >>= case _ of
-    Nothing -> do
+  { status } <- fetch "https://secure.colonq.computer/api/status" {}
+  case status of
+    200 -> do
+      container <- byId "lcolonq-auth-logout"
+      removeClass "lcolonq-invisible" container
+      logout <- byId "lcolonq-auth-logout-link"
+      listen logout "click" \_ev -> do
+        clearSessionCookie
+        UI.reload
+    _ -> do
       container <- byId "lcolonq-auth-login"
       removeClass "lcolonq-invisible" container
       form <- byId "lcolonq-auth-form"
@@ -243,20 +251,13 @@ mainAuth = launchAff_ do
         passwordInp <- byId "lcolonq-auth-password"
         username <- getValue usernameInp
         password <- getValue passwordInp
-        { text: resp } <- fetch ("/api/firstfactor")
+        { text: resp } <- fetch "/api/firstfactor"
           { method: POST
           , headers: { "Content-Type": "application/json" }
           , body: UI.toJSON { username, password }
           }
         res <- resp
         liftEffect $ log res
-    Just _ -> do
-      container <- byId "lcolonq-auth-logout"
-      removeClass "lcolonq-invisible" container
-      logout <- byId "lcolonq-auth-logout-link"
-      listen logout "click" \_ev -> do
-        clearSessionCookie
-        UI.reload
 
 main :: Effect Unit
 main = case Config.mode of
