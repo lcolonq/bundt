@@ -248,8 +248,8 @@ mainAuth = launchAff_ do
           , headers: { "Content-Type": "application/json" }
           , body: UI.toJSON { username, password }
           }
-        _ <- resp
-        UI.reload
+        res <- resp
+        liftEffect $ log res
     Just _ -> do
       container <- byId "lcolonq-auth-logout"
       removeClass "lcolonq-invisible" container
