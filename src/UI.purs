@@ -11,3 +11,7 @@ cheatLog x = liftEffect $ _cheatLog x
 foreign import _setInterval :: Number -> Effect Unit -> Effect Unit
 setInterval :: forall m. MonadEffect m => Number -> Effect Unit -> m Unit
 setInterval d f = liftEffect $ _setInterval d f
+
+foreign import _toJSON :: forall a. a -> String
+toJSON :: forall a. a -> String
+toJSON = _toJSON

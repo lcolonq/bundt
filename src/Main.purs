@@ -242,11 +242,7 @@ mainAuth = launchAff_ do
     { text: resp } <- fetch ("/api/firstfactor")
       { method: POST
       , headers: { "Content-Type": "application/json" }
-      , body: fold
-        [ "{\"username\":\"", user
-        , "\",\"password\":\"", pass
-        , "\"}"
-        ]
+      , body: UI.toJSON { user, pass }
       }
     res <- resp
     liftEffect $ log res
