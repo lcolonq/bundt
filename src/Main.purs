@@ -3,7 +3,7 @@ module Main where
 import Prelude
 
 import Audio as Audio
-import Auth (AuthInfo, authHeader, getToken, startTwitchAuth)
+import Auth (AuthInfo, authHeader, getToken, startTwitchAuth, getSessionCookie, clearSessionCookie)
 import Config as Config
 import Data.String as String
 import Data.Array (head)
@@ -232,21 +232,31 @@ mainMenu = launchAff_ do
 mainAuth :: Effect Unit
 mainAuth = launchAff_ do
   liftEffect $ log "hello from auth"
-  form <- byId "lcolonq-auth-form"
-  listen form "submit" \ev -> launchAff_ do
-    liftEffect $ Ev.preventDefault ev
-    usernameInp <- byId "lcolonq-auth-username"
-    passwordInp <- byId "lcolonq-auth-password"
-    username <- getValue usernameInp
-    password <- getValue passwordInp
-    { text: resp } <- fetch ("/api/firstfactor")
-      { method: POST
-      , headers: { "Content-Type": "application/json" }
-      , body: UI.toJSON { username, password }
-      }
-    res <- resp
-    liftEffect $ log res
-    pure unit
+  getSessionCookie >>= case _ of
+    Nothing -> do
+      container <- byId "lcolonq-auth-login"
+      removeClass "lcolonq-invisible" container
+      form <- byId "lcolonq-auth-form"
+      listen form "submit" \ev -> launchAff_ do
+        liftEffect $ Ev.preventDefault ev
+        usernameInp <- byId "lcolonq-auth-username"
+        passwordInp <- byId "lcolonq-auth-password"
+        username <- getValue usernameInp
+        password <- getValue passwordInp
+        { text: resp } <- fetch ("/api/firstfactor")
+          { method: POST
+          , headers: { "Content-Type": "application/json" }
+          , body: UI.toJSON { username, password }
+          }
+        _ <- resp
+        UI.reload
+    Just _ -> do
+      container <- byId "lcolonq-auth-logout"
+      removeClass "lcolonq-invisible" container
+      logout <- byId "lcolonq-auth-logout-link"
+      listen logout "click" \_ev -> do
+        clearSessionCookie
+        UI.reload
 
 main :: Effect Unit
 main = case Config.mode of

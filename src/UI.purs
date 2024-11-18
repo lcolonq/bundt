@@ -15,3 +15,7 @@ setInterval d f = liftEffect $ _setInterval d f
 foreign import _toJSON :: forall a. a -> String
 toJSON :: forall a. a -> String
 toJSON = _toJSON
+
+foreign import _reload :: Effect Unit
+reload :: forall m. MonadEffect m => m Unit
+reload = liftEffect _reload

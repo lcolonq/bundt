@@ -27,3 +27,11 @@ authHeader (Tuple t n) =
   , n
   , "\""
   ]
+
+foreign import _getSessionCookie :: forall a. (a -> Maybe a) -> Maybe a -> Effect (Maybe String)
+getSessionCookie :: forall m. MonadEffect m => m (Maybe String)
+getSessionCookie = liftEffect $ _getSessionCookie Just Nothing
+
+foreign import _clearSessionCookie :: Effect Unit
+clearSessionCookie :: forall m. MonadEffect m => m Unit
+clearSessionCookie = liftEffect _clearSessionCookie
