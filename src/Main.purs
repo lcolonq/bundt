@@ -237,12 +237,12 @@ mainAuth = launchAff_ do
     liftEffect $ Ev.preventDefault ev
     usernameInp <- byId "lcolonq-auth-username"
     passwordInp <- byId "lcolonq-auth-password"
-    user <- getValue usernameInp
-    pass <- getValue passwordInp
+    username <- getValue usernameInp
+    password <- getValue passwordInp
     { text: resp } <- fetch ("/api/firstfactor")
       { method: POST
       , headers: { "Content-Type": "application/json" }
-      , body: UI.toJSON { user, pass }
+      , body: UI.toJSON { username, password }
       }
     res <- resp
     liftEffect $ log res
