@@ -247,7 +247,9 @@ mainAuth = launchAff_ do
       , body: UI.toJSON { username, password }
       }
     res <- resp
-    liftEffect $ log $ getRedirect res
+    getRedirect res >>= case _ of
+      Nothing -> liftEffect $ log "failed"
+      Just r -> liftEffect $ log $ "redirect: " <> r
 
 main :: Effect Unit
 main = case Config.mode of

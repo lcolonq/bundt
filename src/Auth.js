@@ -49,6 +49,8 @@ export const _clearSessionCookie = () => {
     document.cookie = "authelia_session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
 };
 
-export const getRedirect = (x) => {
-    return x.redirect;
+export const _getRedirect = (Just) => (Nothing) => (x) => () => {
+    const r = x["data"]["redirect"];
+    if (r) return Just(r);
+    return Nothing;
 };
