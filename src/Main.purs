@@ -35,6 +35,7 @@ import Web.Event.Event as Ev
 import Web.Event.EventTarget as Ev.Tar
 import Web.HTML as HTML
 import Web.HTML.HTMLDocument as HTML.Doc
+import Web.HTML.HTMLInputElement as HTML.Input
 import Web.HTML.Window as HTML.Win
 
 maybeToArray :: forall a. Maybe a -> Array a
@@ -92,6 +93,11 @@ appendText parent s = do
 
 setText :: forall m. MonadEffect m => DOM.Element -> String -> m Unit
 setText e s = liftEffect $ DOM.Node.setTextContent s $ DOM.El.toNode e
+
+getValue :: forall m. MonadEffect m => DOM.Element -> m String
+getValue e = case HTML.Input.fromElement e of
+  Just inp -> liftEffect $ HTML.Input.value inp
+  Nothing -> liftEffect $ throw "element is not an input"
 
 addClass :: forall m. MonadEffect m => String -> DOM.Element -> m Unit
 addClass c e = do
@@ -226,6 +232,25 @@ mainMenu = launchAff_ do
 mainAuth :: Effect Unit
 mainAuth = launchAff_ do
   liftEffect $ log "hello from auth"
+  form <- byId "lcolonq-auth-form"
+  listen form "submit" \ev -> launchAff_ do
+    liftEffect $ Ev.preventDefault ev
+    usernameInp <- byId "lcolonq-auth-username"
+    passwordInp <- byId "lcolonq-auth-password"
+    user <- getValue usernameInp
+    pass <- getValue passwordInp
+    { text: resp } <- fetch ("/api/firstfactor")
+      { method: POST
+      , headers: { "Content-Type": "application/json" }
+      , body: fold
+        [ "{\"username\":\"", user
+        , "\",\"password\":\"", pass
+        , "\"}"
+        ]
+      }
+    res <- resp
+    liftEffect $ log res
+    pure unit
 
 main :: Effect Unit
 main = case Config.mode of
@@ -236,5 +261,5 @@ main = case Config.mode of
   "button" -> mainButton
   "register" -> mainRegister
   "menu" -> mainMenu
-  "auth" -> mainMenu
+  "auth" -> mainAuth
   _ -> throw $ "unknown mode: " <> Config.mode
