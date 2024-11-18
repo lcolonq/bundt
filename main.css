@@ -1,3 +1,4 @@
+/* shared */
 @font-face {
     font-family: "Iosevka Comfy";
     src: url("assets/iosevka-comfy-regular.ttf") format("truetype");
@@ -8,7 +9,7 @@ html {
     font-size: 16pt;
 }
 
-html, body {
+body {
     overflow: hidden;
     margin: 0 !important;
     padding: 0 !important;
@@ -16,11 +17,20 @@ html, body {
     width: 100%;
 }
 
+.right {
+    float: right;
+}
+
 .lcolonq-invisible {
     visibility: hidden;
 }
 
-body.lcolonq-index {
+.lcolonq-reverse {
+    transform: scale(-1, 1);
+}
+
+/* pubnix-index */
+body.lcolonq-pubnix-index {
     font-family: "Iosevka Comfy";
     font-weight: bold;
     color: black;
@@ -33,11 +43,11 @@ body.lcolonq-index {
         linear-gradient(to bottom, grey 1px, transparent 1px);
 }
 
-body.lcolonq-obs {
+body.lcolonq-pubnix-index-obs {
     background-color: rbga(0,0,0,0);
 }
 
-#lcolonq-title {
+#lcolonq-pubnix-index-title {
     position: absolute;
     top: 2rem;
     bottom: 0px;
@@ -47,22 +57,22 @@ body.lcolonq-obs {
     font-size: 20vw;
 }
 
-.lcolonq-letter {
+.lcolonq-pubnix-index-letter {
     display: inline-block;
 }
 
-.lcolonq-letter:hover {
+.lcolonq-pubnix-index-letter:hover {
     color: #333333;
 }
 
-#lcolonq-subtitle {
+#lcolonq-pubnix-index-subtitle {
     font-size: 5vw;
     margin-top: -5vw;
     margin-right: 12vw;
     text-align: right;
 }
 
-#lcolonq-header {
+#lcolonq-pubnix-index-header {
     background-color: #cccccf;
     position: absolute;
     left: 0px;
@@ -72,16 +82,16 @@ body.lcolonq-obs {
     border-bottom: 0.2rem ridge;
 }
 
-#lcolonq-header a {
+#lcolonq-pubnix-index-header a {
     color: black;
 }
 
-#lcolonq-header marquee {
+#lcolonq-pubnix-index-header marquee {
     color: black;
     padding-top: 0.4rem;
 }
 
-#lcolonq-footer {
+#lcolonq-pubnix-index-footer {
     background-color: #cccccf;
     position: absolute;
     left: 0px;
@@ -91,7 +101,7 @@ body.lcolonq-obs {
     border-top: 0.2rem groove;
 }
 
-#lcolonq-footer a {
+#lcolonq-pubnix-index-footer a {
     display: inline-block;
     color: black;
     margin-top: 0.2rem;
@@ -102,11 +112,11 @@ body.lcolonq-obs {
     border: 0.1rem outset;
 }
 
-#lcolonq-footer a:active {
+#lcolonq-pubnix-index-footer a:active {
     border: 0.1rem inset;
 }
 
-#lcolonq-canvas {
+#lcolonq-pubnix-index-canvas {
     position: absolute;
     bottom: 2rem;
     left: 0px;
@@ -114,10 +124,7 @@ body.lcolonq-obs {
     height: 832px;
 }
 
-.right {
-    float: right;
-}
-
+/* button */
 body.lcolonq-button-body {
     background-color: #eeeeee;
     user-select: none;
@@ -152,6 +159,7 @@ a.lcolonq-button-link :active {
     right: 0px;
 }
 
+/* register */
 #lcolonq-register-container {
     position: absolute;
     top: 0px;
@@ -220,4 +228,88 @@ a.lcolonq-button-link :active {
     grid-column: 2;
     display: flex;
     justify-content: center;
+}
+
+/* menu */
+#lcolonq-menu {
+    overflow: scroll;
+    height: auto;
+}
+
+#lcolonq-menu-grid {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: max-content 4fr;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+#lcolonq-menu-header {
+    grid-row: 1;
+    grid-column: 2;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+#lcolonq-menu-header h1 {
+    margin-bottom: 0rem;
+}
+
+#lcolonq-menu-body {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+#lcolonq-menu-body-grid {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-auto-rows: minmax(10rem, auto);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+#lcolonq-menu-friendzone {
+    grid-column: 1/-1;
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: subgrid;
+    grid-template-rows: auto; /* first row is just the title */
+    grid-auto-rows: minmax(10rem, auto);
+    gap: 1rem;
+    outline: solid;
+    outline-offset: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#lcolonq-menu-friendzone-title {
+    grid-column: 1/-1;
+    text-align: center;
+    margin-top: 0rem;
+}
+
+.lcolonq-menu-box {
+    border: solid;
+    border-color: black;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+.lcolonq-menu-box:hover {
+    background-color: #eeeeee;
+}
+
+.lcolonq-menu-box h3 {
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.lcolonq-menu-box-long {
+    grid-row-end: span 2;
 }

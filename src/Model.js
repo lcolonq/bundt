@@ -1,4 +1,4 @@
-let canvas = document.getElementById("lcolonq-canvas");
+let canvas = document.getElementById("lcolonq-pubnix-index-canvas");
 let socket = null;
 let currentFrame = null;
 

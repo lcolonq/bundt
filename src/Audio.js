@@ -8,13 +8,13 @@ function initializeCtx() {
       initialized = true;
       ctx = new window.AudioContext();
       voiceTracks = [
-        document.getElementById("lcolonq-audio-voice-0"),
-        document.getElementById("lcolonq-audio-voice-1"),
-        document.getElementById("lcolonq-audio-voice-2"),
-        document.getElementById("lcolonq-audio-voice-3"),
-        document.getElementById("lcolonq-audio-voice-4"),
-        document.getElementById("lcolonq-audio-voice-5"),
-        document.getElementById("lcolonq-audio-voice-6"),
+        document.getElementById("lcolonq-pubnix-index-audio-voice-0"),
+        document.getElementById("lcolonq-pubnix-index-audio-voice-1"),
+        document.getElementById("lcolonq-pubnix-index-audio-voice-2"),
+        document.getElementById("lcolonq-pubnix-index-audio-voice-3"),
+        document.getElementById("lcolonq-pubnix-index-audio-voice-4"),
+        document.getElementById("lcolonq-pubnix-index-audio-voice-5"),
+        document.getElementById("lcolonq-pubnix-index-audio-voice-6"),
       ];
     } catch (e) {
       initialized = false;

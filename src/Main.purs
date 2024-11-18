@@ -113,7 +113,7 @@ toggleClass c e = do
 
 updateSubtitle :: Aff Unit
 updateSubtitle = do
-  subtitle <- byId "lcolonq-subtitle"
+  subtitle <- byId "lcolonq-pubnix-index-subtitle"
   { text: catchphrase } <- fetch (Config.apiServer <> "/catchphrase") {}
   catchphrase >>= setText subtitle
 
@@ -135,7 +135,7 @@ mainPubnix :: Effect Unit
 mainPubnix = launchAff_ do
   liftEffect $ log "hi"
   startModel
-  marq <- byId "lcolonq-marquee"
+  marq <- byId "lcolonq-pubnix-index-marquee"
   { text: motd } <- fetch (Config.apiServer <> "/motd") {}
   motd >>= setText marq
 
@@ -147,13 +147,13 @@ mainPubnix = launchAff_ do
     _ -> pure unit
 
   updateSubtitle
-  subtitle <- byId "lcolonq-subtitle"
+  subtitle <- byId "lcolonq-pubnix-index-subtitle"
   listen subtitle "click" \_ev -> do
     -- startTwitchAuth
     launchAff_ updateSubtitle
   
   for_ (Array.range 0 6) \i -> do
-    letter <- byId $ "lcolonq-letter-" <> show i
+    letter <- byId $ "lcolonq-pubnix-index-letter-" <> show i
     listen letter "click" \_ev -> do
       Audio.playVoice true i
     listen letter "mouseover" \_ev -> do
@@ -219,12 +219,17 @@ mainRegister = launchAff_ do
         liftEffect $ log "register"
         startTwitchAuth
 
+mainMenu :: Effect Unit
+mainMenu = launchAff_ do
+  liftEffect $ log "hello from menu"
+
 main :: Effect Unit
 main = case Config.mode of
-  0 -> mainApi
-  1 -> mainPubnix
-  2 -> mainExtension
-  3 -> mainObs
-  4 -> mainButton
-  5 -> mainRegister
-  _ -> throw "unknown mode"
+  "api" -> mainApi
+  "pubnix" -> mainPubnix
+  "extension" -> mainExtension
+  "obs" -> mainObs
+  "button" -> mainButton
+  "register" -> mainRegister
+  "menu" -> mainMenu
+  _ -> throw $ "unknown mode: " <> Config.mode
