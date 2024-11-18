@@ -248,8 +248,10 @@ mainAuth = launchAff_ do
       }
     res <- resp
     getRedirect res >>= case _ of
-      Nothing -> liftEffect $ log "failed"
-      Just r -> liftEffect $ log $ "redirect: " <> r
+      Nothing -> do
+        err <- byId "lcolonq-auth-error"
+        removeClass "lcolonq-invisible" err
+      Just r -> UI.redirect r
 
 main :: Effect Unit
 main = case Config.mode of

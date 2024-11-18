@@ -50,6 +50,8 @@ export const _clearSessionCookie = () => {
 };
 
 export const _getRedirect = (Just) => (Nothing) => (x) => () => {
+    const data = x["data"];
+    if (!data) return Nothing;
     const r = x["data"]["redirect"];
     if (r) return Just(r);
     return Nothing;
