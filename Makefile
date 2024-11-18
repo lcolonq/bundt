@@ -2,6 +2,7 @@
 
 TEMPLATES_API=$(shell ls templates/api)
 TEMPLATES_PUBNIX=$(shell ls templates/pubnix)
+TEMPLATES_AUTH=$(shell ls templates/auth)
 
 all: api pubnix extension
 
@@ -10,6 +11,8 @@ dist:
 	mkdir -p dist/api/deploy
 	mkdir -p dist/pubnix/test
 	mkdir -p dist/pubnix/deploy
+	mkdir -p dist/auth/test
+	mkdir -p dist/auth/deploy
 
 main.js: $(shell find src)
 	purs-nix bundle
@@ -58,6 +61,28 @@ dist/pubnix/%/$(template): config/%.m4 templates/pubnix/$(template)
 	sh -c "m4 $$^ >$$@"
 endef
 $(foreach template,$(TEMPLATES_PUBNIX), $(eval $(GEN_RULE_PUBNIX)))
+
+# auth
+deploy_auth: dist $(addprefix dist/auth/deploy/,$(TEMPLATES_AUTH)) dist/auth/deploy/assets dist/auth/deploy/main.js dist/auth/deploy/main.css
+
+auth: dist $(addprefix dist/auth/test/,$(TEMPLATES_AUTH)) dist/auth/test/assets dist/auth/test/main.js dist/auth/test/main.css
+
+dist/auth/%/main.js: main.js dist
+	cp $< $@
+
+dist/auth/%/main.css: main.css dist
+	cp $< $@
+
+dist/auth/%/assets: $(shell find assets) dist
+	rm -rf $@
+	mkdir -p $@
+	cp -r assets/* $@
+
+define GEN_RULE_AUTH
+dist/auth/%/$(template): config/%.m4 templates/auth/$(template)
+	sh -c "m4 $$^ >$$@"
+endef
+$(foreach template,$(TEMPLATES_AUTH), $(eval $(GEN_RULE_AUTH)))
 
 # extension
 extension: dist dist/extension/assets dist/extension/manifest.json dist/extension/background.js dist/extension/main.js dist/extension/main.css dist/extension/config.js

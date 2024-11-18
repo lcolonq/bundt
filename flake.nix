@@ -49,6 +49,21 @@
           cp -r dist/api/deploy/* $out/
         '';
       };
+      bundleAuth = pkgs.stdenv.mkDerivation  {
+        name = "bundt-bundle-auth";
+        src = ./.;
+        buildInputs = [
+          (purescript.command {})
+          pkgs.m4
+        ];
+        buildPhase = "
+          make deploy_auth
+        ";
+        installPhase = ''
+          mkdir -p $out
+          cp -r dist/auth/deploy/* $out/
+        '';
+      };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = [
@@ -64,11 +79,17 @@
       };
       packages.x86_64-linux = {
         default = bundt;
-        inherit bundleAPI;
+        inherit
+          bundleAPI
+          bundleAuth
+        ;
       };
       overlay = self: super: {
         bundt = {
-          inherit bundleAPI;
+          inherit
+            bundleAPI
+            bundleAuth
+          ;
         };
       };
     };

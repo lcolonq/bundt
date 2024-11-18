@@ -223,6 +223,10 @@ mainMenu :: Effect Unit
 mainMenu = launchAff_ do
   liftEffect $ log "hello from menu"
 
+mainAuth :: Effect Unit
+mainAuth = launchAff_ do
+  liftEffect $ log "hello from auth"
+
 main :: Effect Unit
 main = case Config.mode of
   "api" -> mainApi
@@ -232,4 +236,5 @@ main = case Config.mode of
   "button" -> mainButton
   "register" -> mainRegister
   "menu" -> mainMenu
+  "auth" -> mainMenu
   _ -> throw $ "unknown mode: " <> Config.mode
