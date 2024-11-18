@@ -341,7 +341,3 @@ a.lcolonq-button-link :active {
 #lcolonq-auth-submit {
     display: none;
 }
-
-#lcolonq-auth-logout-link {
-    text-decoration: underline;
-}

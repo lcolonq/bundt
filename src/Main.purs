@@ -3,7 +3,7 @@ module Main where
 import Prelude
 
 import Audio as Audio
-import Auth (AuthInfo, authHeader, getToken, startTwitchAuth, clearSessionCookie)
+import Auth (AuthInfo, authHeader, getToken, startTwitchAuth, clearSessionCookie, getRedirect)
 import Config as Config
 import Data.String as String
 import Data.Array (head)
@@ -232,32 +232,22 @@ mainMenu = launchAff_ do
 mainAuth :: Effect Unit
 mainAuth = launchAff_ do
   liftEffect $ log "hello from auth"
-  { status } <- fetch "https://secure.colonq.computer/api/status" {}
-  case status of
-    200 -> do
-      container <- byId "lcolonq-auth-logout"
-      removeClass "lcolonq-invisible" container
-      logout <- byId "lcolonq-auth-logout-link"
-      listen logout "click" \_ev -> do
-        clearSessionCookie
-        UI.reload
-    _ -> do
-      container <- byId "lcolonq-auth-login"
-      removeClass "lcolonq-invisible" container
-      form <- byId "lcolonq-auth-form"
-      listen form "submit" \ev -> launchAff_ do
-        liftEffect $ Ev.preventDefault ev
-        usernameInp <- byId "lcolonq-auth-username"
-        passwordInp <- byId "lcolonq-auth-password"
-        username <- getValue usernameInp
-        password <- getValue passwordInp
-        { text: resp } <- fetch "/api/firstfactor"
-          { method: POST
-          , headers: { "Content-Type": "application/json" }
-          , body: UI.toJSON { username, password }
-          }
-        res <- resp
-        liftEffect $ log res
+  container <- byId "lcolonq-auth-login"
+  removeClass "lcolonq-invisible" container
+  form <- byId "lcolonq-auth-form"
+  listen form "submit" \ev -> launchAff_ do
+    liftEffect $ Ev.preventDefault ev
+    usernameInp <- byId "lcolonq-auth-username"
+    passwordInp <- byId "lcolonq-auth-password"
+    username <- getValue usernameInp
+    password <- getValue passwordInp
+    { json: resp } <- fetch "/api/firstfactor"
+      { method: POST
+      , headers: { "Content-Type": "application/json" }
+      , body: UI.toJSON { username, password }
+      }
+    res <- resp
+    liftEffect $ log $ getRedirect res
 
 main :: Effect Unit
 main = case Config.mode of

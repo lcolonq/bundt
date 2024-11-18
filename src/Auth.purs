@@ -8,6 +8,7 @@ import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Class (class MonadEffect, liftEffect)
+import Foreign (Foreign)
 
 foreign import _startTwitchAuth :: String -> String -> Effect Unit
 startTwitchAuth :: forall m. MonadEffect m => m Unit
@@ -31,3 +32,5 @@ authHeader (Tuple t n) =
 foreign import _clearSessionCookie :: Effect Unit
 clearSessionCookie :: forall m. MonadEffect m => m Unit
 clearSessionCookie = liftEffect _clearSessionCookie
+
+foreign import getRedirect :: Foreign -> String

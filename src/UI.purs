@@ -19,3 +19,7 @@ toJSON = _toJSON
 foreign import _reload :: Effect Unit
 reload :: forall m. MonadEffect m => m Unit
 reload = liftEffect _reload
+
+foreign import _redirect :: String -> Effect Unit
+redirect :: forall m. MonadEffect m => String -> m Unit
+redirect url = liftEffect $ _redirect url

@@ -4,3 +4,6 @@ export const _toJSON = (x) => JSON.stringify(x);
 export const _reload = () => {
     window.location.reload();
 };
+export const _redirect = (url) => () => {
+    window.location.href = url;
+};
