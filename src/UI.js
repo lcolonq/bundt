@@ -15,7 +15,6 @@ export const _submitRedeem = (url) => (el) => () => {
     const inp = el.children[1]?.value;
     console.log(redeem, inp);
     const data = new FormData();
-    data.append("ayem", "test");
     data.append("name", redeem);
     data.append("input", inp);
     fetch(url, {
