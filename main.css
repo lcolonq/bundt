@@ -298,6 +298,9 @@ a.lcolonq-button-link :active {
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
 }
 
 .lcolonq-menu-box:hover {
@@ -312,6 +315,12 @@ a.lcolonq-button-link :active {
 
 .lcolonq-menu-box-long {
     grid-row-end: span 2;
+}
+
+.lcolonq-menu-box textarea {
+    resize: none;
+    margin-top: 1rem;
+    flex: 1;
 }
 
 /* auth */

@@ -1,8 +1,10 @@
 module UI where
 
 import Prelude
+import Config as Config
 import Effect (Effect)
 import Effect.Class (class MonadEffect, liftEffect)
+import Web.DOM.Element as DOM.El
 
 foreign import _cheatLog :: forall a. a -> Effect Unit
 cheatLog :: forall m a. MonadEffect m => a -> m Unit
@@ -23,3 +25,7 @@ reload = liftEffect _reload
 foreign import _redirect :: String -> Effect Unit
 redirect :: forall m. MonadEffect m => String -> m Unit
 redirect url = liftEffect $ _redirect url
+
+foreign import _submitRedeem :: String -> DOM.El.Element -> Effect Unit
+submitRedeem :: forall m. MonadEffect m => DOM.El.Element -> m Unit
+submitRedeem el = liftEffect $ _submitRedeem (Config.apiServer <> "/redeem") el

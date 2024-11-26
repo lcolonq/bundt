@@ -24,6 +24,7 @@
           "web-html"
           "web-dom"
           "web-uievents"
+          "web-xhr"
           "canvas"
           "argonaut"
           "fetch"

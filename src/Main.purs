@@ -37,6 +37,7 @@ import Web.HTML as HTML
 import Web.HTML.HTMLDocument as HTML.Doc
 import Web.HTML.HTMLInputElement as HTML.Input
 import Web.HTML.Window as HTML.Win
+import Web.XHR.FormData as FD
 
 maybeToArray :: forall a. Maybe a -> Array a
 maybeToArray (Just x) = [x]
@@ -228,6 +229,12 @@ mainRegister = launchAff_ do
 mainMenu :: Effect Unit
 mainMenu = launchAff_ do
   liftEffect $ log "hello from menu"
+  textareas <- queryAll "textarea"
+  for_ textareas \ta -> listen ta "click" Ev.stopPropagation
+  boxes <- queryAll ".lcolonq-menu-box"
+  for_ boxes \box -> do
+    listen box "click" \_ev -> do
+      UI.submitRedeem box
 
 mainAuth :: Effect Unit
 mainAuth = launchAff_ do
