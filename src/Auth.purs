@@ -33,6 +33,10 @@ foreign import _clearSessionCookie :: Effect Unit
 clearSessionCookie :: forall m. MonadEffect m => m Unit
 clearSessionCookie = liftEffect _clearSessionCookie
 
-foreign import _getRedirect :: forall a. (a -> Maybe a) -> Maybe a -> Foreign -> Effect (Maybe String)
-getRedirect :: forall m . MonadEffect m => Foreign -> m (Maybe String)
-getRedirect x = liftEffect $ _getRedirect Just Nothing x
+foreign import _getQueryRedirect :: forall a. (a -> Maybe a) -> Maybe a -> Effect (Maybe String)
+getQueryRedirect :: forall m . MonadEffect m => m (Maybe String)
+getQueryRedirect = liftEffect $ _getQueryRedirect Just Nothing
+
+foreign import _getResponseRedirect :: forall a. (a -> Maybe a) -> Maybe a -> Foreign -> Effect (Maybe String)
+getResponseRedirect :: forall m . MonadEffect m => Foreign -> m (Maybe String)
+getResponseRedirect x = liftEffect $ _getResponseRedirect Just Nothing x

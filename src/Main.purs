@@ -3,7 +3,7 @@ module Main where
 import Prelude
 
 import Audio as Audio
-import Auth (AuthInfo, authHeader, getToken, startTwitchAuth, clearSessionCookie, getRedirect)
+import Auth (AuthInfo, authHeader, getToken, startTwitchAuth, clearSessionCookie, getQueryRedirect, getResponseRedirect)
 import Config as Config
 import Data.String as String
 import Data.Array (head)
@@ -248,13 +248,20 @@ mainAuth = launchAff_ do
     passwordInp <- byId "lcolonq-auth-password"
     username <- getValue usernameInp
     password <- getValue passwordInp
+    rd <- getQueryRedirect
     { json: resp } <- fetch "/api/firstfactor"
       { method: POST
       , headers: { "Content-Type": "application/json" }
-      , body: UI.toJSON { username, password }
+      , body: UI.toJSON
+        { username
+        , password
+        , targetURL: case rd of
+            Just r -> r
+            Nothing -> "https://secure.colonq.computer"
+        }
       }
     res <- resp
-    getRedirect res >>= case _ of
+    getResponseRedirect res >>= case _ of
       Nothing -> do
         err <- byId "lcolonq-auth-error"
         removeClass "lcolonq-invisible" err
