@@ -358,6 +358,11 @@ a.lcolonq-button-link :active {
     display: none;
 }
 
+#lcolonq-auth-register {
+    font-size: 0.7rem;
+    color: CanvasText;
+}
+
 #lcolonq-auth-error {
     grid-row: 3;
     grid-column: 2;
