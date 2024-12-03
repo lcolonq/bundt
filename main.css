@@ -361,10 +361,13 @@ a.lcolonq-button-link :active {
     display: none;
 }
 
+#lcolonq-auth-below {
+    text-align: center;
+}
+
 #lcolonq-auth-register {
     font-size: 0.7rem;
     color: CanvasText;
-    text-align: center;
 }
 
 #lcolonq-auth-error {
