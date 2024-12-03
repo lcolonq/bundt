@@ -342,9 +342,12 @@ a.lcolonq-button-link :active {
     grid-template-columns: 1fr 2fr 1fr;
 }
 
-.lcolonq-auth-box {
+.lcolonq-auth-box-outer {
     grid-row: 2;
     grid-column: 2;
+}
+
+.lcolonq-auth-box {
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -358,11 +361,6 @@ a.lcolonq-button-link :active {
     display: none;
 }
 
-#lcolonq-auth-beneath {
-    grid-row: 3;
-    grid-column: 2;
-}
-
 #lcolonq-auth-register {
     font-size: 0.7rem;
     color: CanvasText;
@@ -370,6 +368,8 @@ a.lcolonq-button-link :active {
 }
 
 #lcolonq-auth-error {
+    grid-row: 3;
+    grid-column: 2;
     text-align: center;
     color: red;
 }
