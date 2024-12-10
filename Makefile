@@ -3,8 +3,9 @@
 TEMPLATES_API=$(shell ls templates/api)
 TEMPLATES_PUBNIX=$(shell ls templates/pubnix)
 TEMPLATES_AUTH=$(shell ls templates/auth)
+TEMPLATES_GREENCIRCLE=$(shell ls templates/greencircle)
 
-all: api pubnix extension
+all: api pubnix extension auth greencircle
 
 dist:
 	mkdir -p dist/api/test
@@ -13,6 +14,8 @@ dist:
 	mkdir -p dist/pubnix/deploy
 	mkdir -p dist/auth/test
 	mkdir -p dist/auth/deploy
+	mkdir -p dist/greencircle/test
+	mkdir -p dist/greencircle/deploy
 
 main.js: $(shell find src)
 	purs-nix bundle
@@ -84,20 +87,50 @@ dist/auth/%/$(template): config/%.m4 templates/auth/$(template)
 endef
 $(foreach template,$(TEMPLATES_AUTH), $(eval $(GEN_RULE_AUTH)))
 
+# greencircle
+deploy_greencircle: dist $(addprefix dist/greencircle/deploy/,$(TEMPLATES_GREENCIRCLE)) dist/greencircle/deploy/assets dist/greencircle/deploy/main.js dist/greencircle/deploy/main.css
+
+greencircle: dist $(addprefix dist/greencircle/test/,$(TEMPLATES_GREENCIRCLE)) dist/greencircle/test/assets dist/greencircle/test/main.js dist/greencircle/test/main.css
+
+dist/greencircle/%/main.js: main.js dist
+	cp $< $@
+
+dist/greencircle/%/main.css: main.css dist
+	cp $< $@
+
+dist/greencircle/%/assets: $(shell find assets) dist
+	rm -rf $@
+	mkdir -p $@
+	cp -r assets/* $@
+
+define GEN_RULE_GREENCIRCLE
+dist/greencircle/%/$(template): config/%.m4 templates/greencircle/$(template)
+	sh -c "m4 $$^ >$$@"
+endef
+$(foreach template,$(TEMPLATES_GREENCIRCLE), $(eval $(GEN_RULE_GREENCIRCLE)))
+
 # extension
 extension: dist dist/extension/assets dist/extension/manifest.json dist/extension/background.js dist/extension/main.js dist/extension/main.css dist/extension/config.js
 
 dist/extension/main.css: extension/main.css dist
 	cp $< $@
 
-dist/extension/manifest.json: extension/manifest.dhall
+dist/extension/manifest.json: extension/manifest.dhall dist
 	dhall-to-json <$< >$@
 
-dist/extension/config.js: config/extension.js
+dist/extension/config.js: config/extension.js dist
 	cp $< $@
 
-dist/extension/%: extension/%
+dist/extension/main.js: main.js dist
 	cp $< $@
+
+dist/extension/%: extension/% dist
+	cp $< $@
+
+dist/extension/assets: $(shell find assets) dist
+	rm -rf $@
+	mkdir -p $@
+	cp -r assets/* $@
 
 clean:
 	rm main.js

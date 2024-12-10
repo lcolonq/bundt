@@ -376,3 +376,106 @@ a.lcolonq-button-link :active {
     text-align: center;
     color: red;
 }
+
+/* greencircle */
+#lcolonq-gc-body {
+    overflow-y: scroll;
+    height: auto;
+}
+
+#lcolonq-gc-hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#lcolonq-gc-spin {
+    height: 60vh;
+    width: 60vh;
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+    display: grid;
+    place-items: center;
+}
+
+#lcolonq-gc-logo {
+    grid-area: 1 / 1;
+    margin-top: 2vh;
+    margin-left: 8vh;
+    height: 100%;
+    image-rendering: pixelated;
+}
+
+#lcolonq-gc-spin-image {
+    grid-area: 1 / 1;
+    animation: spin 40s linear infinite;
+    margin-left: 2vh;
+    height: 250%;
+    width: 250%;
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#lcolonq-gc-rest {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-rows: min-content;
+}
+
+#lcolonq-gc-explainer {
+    grid-area: 1 / 1 / 1 / 4;
+    text-align: justify;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#lcolonq-gc-explainer h1 {
+    text-align: center;
+}
+
+#lcolonq-gc-explainer p {
+    mask-image: linear-gradient(180deg, white 50%, transparent 95%);
+}
+
+#lcolonq-gc-relentless {
+    grid-area: 2 / 1 / 2 / 4;
+    text-align: justify;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+}
+
+#lcolonq-gc-panels {
+    grid-area: 3 / 1 / 3 / 4;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-auto-rows: minmax(10rem, auto);
+    gap: 1rem;
+}
+
+.lcolonq-gc-panel {
+    border: solid black;
+    padding: 1rem;
+}
+
+.lcolonq-gc-panel h2 {
+    text-align: center;
+}
+
+.lcolonq-gc-now {
+    font-weight: bold;
+    color: red;
+}
