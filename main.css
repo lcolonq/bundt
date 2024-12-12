@@ -469,7 +469,7 @@ a.lcolonq-button-link :active {
 .lcolonq-gc-panel {
     border: solid black;
     padding: 1rem;
-    /* display: none; */
+    display: none;
 }
 
 .lcolonq-gc-panel:hover {
