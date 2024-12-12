@@ -460,8 +460,8 @@ a.lcolonq-button-link :active {
     margin-right: 1rem;
     margin-bottom: 1rem;
     display: grid;
-    grid-auto-flow: dense;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 20rem);
     grid-auto-rows: minmax(10rem, auto);
     gap: 1rem;
 }
@@ -469,6 +469,15 @@ a.lcolonq-button-link :active {
 .lcolonq-gc-panel {
     border: solid black;
     padding: 1rem;
+    /* display: none; */
+}
+
+.lcolonq-gc-panel:hover {
+    background-color: #eeeeee;
+}
+
+.lcolonq-gc-visible {
+    display: block;
 }
 
 .lcolonq-gc-panel h2 {

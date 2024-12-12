@@ -65,6 +65,21 @@
           cp -r dist/auth/deploy/* $out/
         '';
       };
+      bundleGreencircle = pkgs.stdenv.mkDerivation  {
+        name = "bundt-bundle-greencircle";
+        src = ./.;
+        buildInputs = [
+          (purescript.command {})
+          pkgs.m4
+        ];
+        buildPhase = "
+          make deploy_greencircle
+        ";
+        installPhase = ''
+          mkdir -p $out
+          cp -r dist/greencircle/deploy/* $out/
+        '';
+      };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = [
@@ -83,6 +98,7 @@
         inherit
           bundleAPI
           bundleAuth
+          bundleGreencircle
         ;
       };
       overlay = self: super: {
@@ -90,6 +106,7 @@
           inherit
             bundleAPI
             bundleAuth
+            bundleGreencircle
           ;
         };
       };

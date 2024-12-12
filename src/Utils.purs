@@ -54,6 +54,9 @@ query q = do
     Nothing -> liftEffect $ throw $ "could not find element matching query: " <> q
     Just x -> pure x
 
+getId :: forall m. MonadEffect m => DOM.Element -> m String
+getId e = liftEffect $ DOM.El.id e
+
 listen :: forall m. MonadEffect m => DOM.Element -> String -> (Ev.Event -> Effect Unit) -> m Unit
 listen e ev f = do
   l <- liftEffect $ Ev.Tar.eventListener f
