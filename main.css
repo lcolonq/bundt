@@ -423,6 +423,17 @@ a.lcolonq-button-link :active {
     }
 }
 
+@media (max-width : 320px) {
+    #lcolonq-gc-logo {
+        max-width: 60vw;
+        max-height: 60vw;
+    }
+    #lcolonq-gc-spin-image {
+        height: 160%;
+        width: 160%;
+    }
+}
+
 #lcolonq-gc-rest {
     min-height: 100vh;
     display: grid;
@@ -439,6 +450,7 @@ a.lcolonq-button-link :active {
 
 #lcolonq-gc-explainer h1 {
     text-align: center;
+    font-size: 1.9rem;
 }
 
 #lcolonq-gc-explainer p {
@@ -453,6 +465,10 @@ a.lcolonq-button-link :active {
     text-align: center;
 }
 
+#lcolonq-gc-relentless h1 {
+    font-size: 1.9rem;
+}
+
 #lcolonq-gc-panels {
     grid-area: 3 / 1 / 3 / 4;
     margin-left: 1rem;
@@ -460,7 +476,7 @@ a.lcolonq-button-link :active {
     margin-bottom: 1rem;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, 20rem);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
     grid-auto-rows: minmax(10rem, auto);
     gap: 1rem;
 }
@@ -469,6 +485,7 @@ a.lcolonq-button-link :active {
     border: solid black;
     padding: 1rem;
     display: none;
+    cursor: pointer;
 }
 
 .lcolonq-gc-panel:hover {
