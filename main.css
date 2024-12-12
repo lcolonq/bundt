@@ -427,7 +427,6 @@ a.lcolonq-button-link :active {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
     grid-auto-rows: min-content;
 }
 
