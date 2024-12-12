@@ -434,18 +434,12 @@ a.lcolonq-button-link :active {
     }
 }
 
-#lcolonq-gc-rest {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-auto-rows: min-content;
-}
-
 #lcolonq-gc-explainer {
-    grid-area: 1 / 1 / 1 / 4;
     text-align: justify;
     padding-left: 1rem;
     padding-right: 1rem;
+    height: 100vh;
+    mask-image: linear-gradient(180deg, white 50%, transparent 95%);
 }
 
 #lcolonq-gc-explainer h1 {
@@ -453,12 +447,7 @@ a.lcolonq-button-link :active {
     font-size: 1.9rem;
 }
 
-#lcolonq-gc-explainer p {
-    mask-image: linear-gradient(180deg, white 50%, transparent 95%);
-}
-
 #lcolonq-gc-relentless {
-    grid-area: 2 / 1 / 2 / 4;
     text-align: justify;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -470,19 +459,26 @@ a.lcolonq-button-link :active {
 }
 
 #lcolonq-gc-panels {
-    grid-area: 3 / 1 / 3 / 4;
     margin-left: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    grid-template-columns: repeat(auto-fit, 15rem);
     grid-auto-rows: minmax(10rem, auto);
     gap: 1rem;
 }
 
+@media (max-width : 320px) {
+    #lcolonq-gc-panels {
+        grid-template-columns: 1fr;
+    }
+}
+
 .lcolonq-gc-panel {
     border: solid black;
+    color: inherit;
+    text-decoration: none;
     padding: 1rem;
     display: none;
     cursor: pointer;

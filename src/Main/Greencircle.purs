@@ -45,12 +45,4 @@ updateLive = launchAff_ do
 main :: Effect Unit
 main = do
   liftEffect $ log "hello it is greencircle"
-  panels <- Utils.queryAll ".lcolonq-gc-panel"
-  for_ panels \p -> do
-    pid <- Utils.getId p
-    case String.stripPrefix (String.Pattern "lcolonq-gc-panel-") pid of
-      Nothing -> pure unit
-      Just user -> do
-        Utils.listen p "click" \_ev -> do
-          UI.redirect $ "https://twitch.tv/" <> user
   updateLive
