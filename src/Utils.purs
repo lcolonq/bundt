@@ -32,11 +32,15 @@ maybeToArray :: forall a. Maybe a -> Array a
 maybeToArray (Just x) = [x]
 maybeToArray Nothing = []
 
-byId :: forall m. MonadEffect m => String -> m DOM.Element
-byId i = do
+maybeById :: forall m. MonadEffect m => String -> m (Maybe DOM.Element)
+maybeById i = do
   w <- liftEffect HTML.window
   d <- liftEffect $ HTML.Doc.toDocument <$> HTML.Win.document w
-  liftEffect (DOM.NEP.getElementById i (DOM.Doc.toNonElementParentNode d)) >>= case _ of
+  liftEffect (DOM.NEP.getElementById i (DOM.Doc.toNonElementParentNode d))
+
+byId :: forall m. MonadEffect m => String -> m DOM.Element
+byId i = do
+  maybeById i >>= case _ of
     Nothing -> liftEffect $ throw $ "could not find element with id: " <> i
     Just e -> pure e
 

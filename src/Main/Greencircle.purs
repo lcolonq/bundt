@@ -39,8 +39,9 @@ updateLive = launchAff_ do
   Utils.setText adj $ adjective $ Array.length names
   for_ names \n -> do
     liftEffect $ log n
-    p <- Utils.byId $ "lcolonq-gc-panel-" <> n
-    Utils.addClass "lcolonq-gc-visible" p
+    Utils.maybeById ("lcolonq-gc-panel-" <> n) >>= case _ of
+      Nothing -> liftEffect $ log "couldn't find panel"
+      Just p -> Utils.addClass "lcolonq-gc-visible" p
 
 main :: Effect Unit
 main = do
