@@ -16,6 +16,16 @@ CONFIG_SUBST
           window.wasmBindings = bindings;
           console.log("initialized, starting...");
           window.wasmBindings.main_js();
+          function resizeCanvas() {
+              let canvas = document.getElementById("teleia-parent").firstChild;
+              if (canvas) {
+                  canvas.width = 1920;
+                  canvas.height = 1080;
+              } else {
+                  setTimeout(resizeCanvas, 50);
+              }
+          }
+          resizeCanvas();
         </script>
         <script type="module" src="./main.js"></script>
     </head>
@@ -24,10 +34,10 @@ CONFIG_SUBST
       <div id="lcolonq-throwshade-bottom">
         <div id="lcolonq-throwshade-bottom-left">
           <textarea id="lcolonq-throwshade-textarea">
-vec4 shade(vec2 cs) {
-  return vec4(0.0, 1.0, 0.0, 1.0);
-}
-</textarea>
+            vec4 shade(vec2 cs) {
+            return vec4(0.0, 1.0, 0.0, 1.0);
+            }
+          </textarea>
         </div>
         <div id="lcolonq-throwshade-bottom-right">
           <img id="lcolonq-throwshade-button-test" src="./assets/test.gif"></img>

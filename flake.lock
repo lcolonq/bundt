@@ -172,11 +172,11 @@
         "st": "st"
       },
       "locked": {
-        "lastModified": 1739851074,
-        "narHash": "sha256-Bx2LdbFBfGX+CpBGTbBRHXfbxBbF8L9aERZfal7jBDU=",
+        "lastModified": 1739859479,
+        "narHash": "sha256-N7dCjxO2z688JivQHOVQ79zEKdBPgIcy68V8BJ/mReI=",
         "ref": "refs/heads/master",
-        "rev": "0a078977d4b033739e85b95942a3f02711c4b9a3",
-        "revCount": 17,
+        "rev": "cc3e4cbcb484c6aff6fae5124b2400346bb64c95",
+        "revCount": 18,
         "type": "git",
         "url": "ssh://git@github.com/lcolonq/newton"
       },
