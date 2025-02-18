@@ -4,9 +4,8 @@ TEMPLATES_API=$(shell ls templates/api)
 TEMPLATES_PUBNIX=$(shell ls templates/pubnix)
 TEMPLATES_AUTH=$(shell ls templates/auth)
 TEMPLATES_GREENCIRCLE=$(shell ls templates/greencircle)
-TEMPLATES_THROWSHADE=$(shell ls templates/greencircle)
 
-all: api pubnix extension auth greencircle throwshade
+all: api pubnix extension auth greencircle
 
 dist:
 	mkdir -p dist/api/test
@@ -17,16 +16,22 @@ dist:
 	mkdir -p dist/auth/deploy
 	mkdir -p dist/greencircle/test
 	mkdir -p dist/greencircle/deploy
-	mkdir -p dist/throwshade/test
-	mkdir -p dist/throwshade/deploy
 
 main.js: $(shell find src)
 	purs-nix bundle
 
 # api
-deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/main.css
+deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/main.css dist/api/deploy/newton
 
-api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/main.css
+api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/main.css dist/api/test/newton
+
+dist/api/%/newton: ${NEWTON_PATH}
+	rm -rf $@
+	mkdir -p $@
+	cp -r --no-preserve=mode,ownership $</snippets $@
+	install $</throwshade-*.js $@/throwshade.js
+	install $</throwshade-*.wasm $@/throwshade.wasm
+	chmod -R 0755 $@
 
 dist/api/%/main.js: main.js dist
 	cp $< $@
@@ -111,36 +116,6 @@ dist/greencircle/%/$(template): config/%.m4 templates/greencircle/$(template)
 	sh -c "m4 $$^ >$$@"
 endef
 $(foreach template,$(TEMPLATES_GREENCIRCLE), $(eval $(GEN_RULE_GREENCIRCLE)))
-
-# throwshade
-deploy_throwshade: dist $(addprefix dist/throwshade/deploy/,$(TEMPLATES_THROWSHADE)) dist/throwshade/deploy/assets dist/throwshade/deploy/main.js dist/throwshade/deploy/main.css dist/throwshade/deploy/newton
-
-throwshade: dist $(addprefix dist/throwshade/test/,$(TEMPLATES_THROWSHADE)) dist/throwshade/test/assets dist/throwshade/test/main.js dist/throwshade/test/main.css dist/throwshade/test/newton
-
-dist/throwshade/%/newton: ${NEWTON_PATH}
-	rm -rf $@
-	mkdir -p $@
-	cp -r --no-preserve=mode,ownership $</snippets $@
-	install $</throwshade-*.js $@/throwshade.js
-	install $</throwshade-*.wasm $@/throwshade.wasm
-	chmod -R 0755 $@
-
-dist/throwshade/%/main.js: main.js dist
-	cp $< $@
-
-dist/throwshade/%/main.css: main.css dist
-	cp $< $@
-
-dist/throwshade/%/assets: $(shell find assets) dist
-	rm -rf $@
-	mkdir -p $@
-	cp -r assets/* $@
-
-define GEN_RULE_THROWSHADE
-dist/throwshade/%/$(template): config/%.m4 templates/throwshade/$(template)
-	sh -c "m4 $$^ >$$@"
-endef
-$(foreach template,$(TEMPLATES_THROWSHADE), $(eval $(GEN_RULE_THROWSHADE)))
 
 # extension
 extension: dist dist/extension/assets dist/extension/manifest.json dist/extension/background.js dist/extension/main.js dist/extension/main.css dist/extension/config.js

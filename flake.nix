@@ -86,22 +86,6 @@
           cp -r dist/greencircle/deploy/* $out/
         '';
       };
-      bundleThrowshade = pkgs.stdenv.mkDerivation  {
-        name = "bundt-bundle-throwshade";
-        src = ./.;
-        inherit NEWTON_PATH;
-        buildInputs = [
-          (purescript.command {})
-          pkgs.m4
-        ];
-        buildPhase = "
-          make deploy_throwshade
-        ";
-        installPhase = ''
-          mkdir -p $out
-          cp -r dist/throwshade/deploy/* $out/
-        '';
-      };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
         inherit NEWTON_PATH;
@@ -122,7 +106,6 @@
           bundleAPI
           bundleAuth
           bundleGreencircle
-          bundleThrowshade
         ;
       };
       overlay = self: super: {
