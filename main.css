@@ -549,6 +549,7 @@ a.lcolonq-button-link :active {
     overflow: auto;
     outline: none;
     box-shadow: none;
+    color: white;
     background-color: rgb(0 0 0 / 0.8);
 }
 #lcolonq-throwshade-bottom-right {
