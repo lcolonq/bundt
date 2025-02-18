@@ -26,6 +26,7 @@ import Web.Event.EventTarget as Ev.Tar
 import Web.HTML as HTML
 import Web.HTML.HTMLDocument as HTML.Doc
 import Web.HTML.HTMLInputElement as HTML.Input
+import Web.HTML.HTMLTextAreaElement as HTML.TextArea
 import Web.HTML.Window as HTML.Win
 
 maybeToArray :: forall a. Maybe a -> Array a
@@ -90,6 +91,11 @@ appendText parent s = do
 
 setText :: forall m. MonadEffect m => DOM.Element -> String -> m Unit
 setText e s = liftEffect $ DOM.Node.setTextContent s $ DOM.El.toNode e
+
+getTextArea :: forall m. MonadEffect m => DOM.Element -> m String
+getTextArea e = case HTML.TextArea.fromElement e of
+  Just inp -> liftEffect $ HTML.TextArea.value inp
+  Nothing -> liftEffect $ throw "element is not a text area"
 
 getValue :: forall m. MonadEffect m => DOM.Element -> m String
 getValue e = case HTML.Input.fromElement e of

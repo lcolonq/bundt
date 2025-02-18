@@ -29,3 +29,7 @@ redirect url = liftEffect $ _redirect url
 foreign import _submitRedeem :: String -> DOM.El.Element -> Effect Unit
 submitRedeem :: forall m. MonadEffect m => DOM.El.Element -> m Unit
 submitRedeem el = liftEffect $ _submitRedeem (Config.secureApiServer <> "/redeem") el
+
+foreign import _setShader :: String -> Effect Unit
+setShader :: forall m. MonadEffect m => String -> m Unit
+setShader s = liftEffect $ _setShader s

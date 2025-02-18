@@ -5,6 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     ps-tools.follows = "purs-nix/ps-tools";
     purs-nix.url = "github:purs-nix/purs-nix/ps-0.15";
+    newton = {
+      # url = "github:lcolonq/newton";
+      url = "git+ssh://git@github.com/lcolonq/newton";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -13,6 +17,8 @@
       pkgs = nixpkgs.legacyPackages.${system};
       ps-tools = inputs.ps-tools.legacyPackages.${system};
       purs-nix = inputs.purs-nix { inherit system; };
+
+      NEWTON_PATH = inputs.newton.packages.${system}.wasm.throwshade;
 
       purescript = purs-nix.purs {
         dependencies = [
@@ -82,6 +88,7 @@
       };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
+        inherit NEWTON_PATH;
         buildInputs = [
           pkgs.nodejs
           (purescript.command {})

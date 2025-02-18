@@ -22,3 +22,7 @@ export const _submitRedeem = (url) => (el) => () => {
         body: data,
     });
 };
+
+export const _setShader = (shader) => () => {
+    window.wasmBindings.set_shader(shader);
+};

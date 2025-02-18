@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>LLLLColonq ShaderVerse Prime: The NEXTus (shado-realm)</title>
+        <link rel="icon" href="./assets/mrgreen.png">
+        <link rel="stylesheet" type="text/css" href="./main.css">
+        <script type="module">
+CONFIG_SUBST
+         globalThis.mode = "throwshade";
+        </script>
+        <script type="module">
+          import init, * as bindings from "./newton/throwshade.js";
+          const wasm = await init({ module_or_path: "./newton/throwshade.wasm" });
+          window.wasmBindings = bindings;
+          console.log("initialized, starting...");
+          window.wasmBindings.main_js();
+        </script>
+        <script type="module" src="./main.js"></script>
+    </head>
+    <body id="lcolonq-throwshade">
+      <div id="teleia-parent" class="lcolonq-throwshade-canvas"></div>
+      <div id="lcolonq-throwshade-bottom">
+        <div id="lcolonq-throwshade-bottom-left">
+          <textarea id="lcolonq-throwshade-textarea">
+vec4 shade(vec2 cs) {
+  return vec4(0.0, 1.0, 0.0, 1.0);
+}
+</textarea>
+        </div>
+        <div id="lcolonq-throwshade-bottom-right">
+          <img id="lcolonq-throwshade-button-test" src="./assets/test.gif"></img>
+          <img id="lcolonq-throwshade-button-submit" src="./assets/upload.gif"></img>
+        </div>
+      </div>
+    </body>
+</html>

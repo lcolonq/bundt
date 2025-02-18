@@ -14,6 +14,7 @@ import Main.Menu as Menu
 import Main.OBS as OBS
 import Main.Pubnix as Pubnix
 import Main.Register as Register
+import Main.Throwshade as Throwshade
 
 main :: Effect Unit
 main = case Config.mode of
@@ -26,4 +27,5 @@ main = case Config.mode of
   "menu" -> Menu.main
   "auth" -> Auth.main
   "greencircle" -> Greencircle.main
+  "throwshade" -> Throwshade.main
   _ -> throw $ "unknown mode: " <> Config.mode
