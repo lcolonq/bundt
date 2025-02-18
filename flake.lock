@@ -2,11 +2,11 @@
   "nodes": {
     "crane": {
       "locked": {
-        "lastModified": 1739638817,
-        "narHash": "sha256-pPiI27T416xAAUETorkLAgHQMiLT92moOrf0ItHhtPA=",
+        "lastModified": 1739898326,
+        "narHash": "sha256-CqRBf9MKC8eiwDRg9akoWia57Nsjmq3S++YbkmT6p9M=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "bef2b45cd1273a9e621fb5292de89f4ed59ad812",
+        "rev": "680a2b47cdef830bca3edfd53383e3292154ba7b",
         "type": "github"
       },
       "original": {
@@ -172,11 +172,11 @@
         "st": "st"
       },
       "locked": {
-        "lastModified": 1739859479,
-        "narHash": "sha256-N7dCjxO2z688JivQHOVQ79zEKdBPgIcy68V8BJ/mReI=",
+        "lastModified": 1739919622,
+        "narHash": "sha256-hBNeFJLDJei2ZlnsPFZN25upkPzaQRvxrfYXO8s9XnA=",
         "ref": "refs/heads/master",
-        "rev": "cc3e4cbcb484c6aff6fae5124b2400346bb64c95",
-        "revCount": 18,
+        "rev": "a4aac831139a03119b2bbcb50c22e196e869b38d",
+        "revCount": 20,
         "type": "git",
         "url": "ssh://git@github.com/lcolonq/newton"
       },

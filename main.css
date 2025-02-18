@@ -510,7 +510,8 @@ a.lcolonq-button-link :active {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    background-image: url("./assets/rectangular.jpg");
+    /* background-image: url("./assets/rectangular.jpg"); */
+    background-color: darkgray;
     background-size: 100% 100%;
 }
 .lcolonq-throwshade-canvas {

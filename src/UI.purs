@@ -33,3 +33,7 @@ submitRedeem el = liftEffect $ _submitRedeem (Config.secureApiServer <> "/redeem
 foreign import _setShader :: String -> Effect Unit
 setShader :: forall m. MonadEffect m => String -> m Unit
 setShader s = liftEffect $ _setShader s
+
+foreign import _submitShader :: String -> String -> Effect Unit
+submitShader :: forall m. MonadEffect m => String -> m Unit
+submitShader el = liftEffect $ _submitShader (Config.secureApiServer <> "/redeem") el

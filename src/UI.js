@@ -26,3 +26,13 @@ export const _submitRedeem = (url) => (el) => () => {
 export const _setShader = (shader) => () => {
     window.wasmBindings.set_shader(shader);
 };
+
+export const _submitShader = (url) => (shader) => () => {
+    const data = new FormData();
+    data.append("name", "throw shade");
+    data.append("input", shader);
+    fetch(url, {
+        method: "post",
+        body: data,
+    });
+};
