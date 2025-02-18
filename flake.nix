@@ -44,6 +44,7 @@
       bundleAPI = pkgs.stdenv.mkDerivation  {
         name = "bundt-bundle-api";
         src = ./.;
+        inherit NEWTON_PATH;
         buildInputs = [
           (purescript.command {})
           pkgs.m4
