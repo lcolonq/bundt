@@ -29,11 +29,12 @@ CONFIG_SUBST
         </script>
         <script type="module" src="./main.js"></script>
     </head>
-    <body id="lcolonq-throwshade">
-      <div id="teleia-parent" class="lcolonq-throwshade-canvas"></div>
-      <div id="lcolonq-throwshade-bottom">
-        <div id="lcolonq-throwshade-bottom-left">
-          <textarea id="lcolonq-throwshade-textarea">
+    <body id="lcolonq-throwshade-body">
+      <div id="lcolonq-throwshade">
+        <div id="teleia-parent" class="lcolonq-throwshade-canvas"></div>
+        <div id="lcolonq-throwshade-bottom">
+          <div id="lcolonq-throwshade-bottom-left">
+            <textarea id="lcolonq-throwshade-textarea">
 // how to:
 // the parameter "cs" is a screen coordinate - it ranges from (0, 0) in the top left
 // to (1.0, 1.0) in the bottom right
@@ -43,13 +44,16 @@ CONFIG_SUBST
 // float chat_time - timestamp (in seconds since shader started) of last chat message
 vec4 shade(vec2 cs) {
     return vec4(0.0, 1.0, 0.0, 1.0);
-}
-          </textarea>
+}</textarea>
         </div>
         <div id="lcolonq-throwshade-bottom-right">
           <img id="lcolonq-throwshade-button-test" src="./assets/test.gif"></img>
           <img id="lcolonq-throwshade-button-submit" src="./assets/upload.gif"></img>
         </div>
+      </div>
+      </div>
+      <pre id="lcolonq-throwshade-current">
+        hiiiiiiiii
       </div>
     </body>
 </html>

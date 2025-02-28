@@ -503,9 +503,10 @@ a.lcolonq-button-link :active {
 }
 
 /* throwshade */
+#lcolonq-throwshade-body {
+    overflow-y: scroll;
+}
 #lcolonq-throwshade {
-    overflow-x: hidden;
-    overflow-y: hidden;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -564,5 +565,9 @@ a.lcolonq-button-link :active {
     max-width: 40%;
 }
 #lcolonq-throwshade-bottom-right img {
+    cursor: pointer;
     height: 40%;
+}
+#lcolonq-throwshade-current {
+    margin: 0.5rem;
 }

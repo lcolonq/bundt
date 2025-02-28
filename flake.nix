@@ -6,8 +6,7 @@
     ps-tools.follows = "purs-nix/ps-tools";
     purs-nix.url = "github:purs-nix/purs-nix/ps-0.15";
     newton = {
-      # url = "github:lcolonq/newton";
-      url = "git+ssh://git@github.com/lcolonq/newton";
+      url = "github:lcolonq/newton";
     };
   };
 
