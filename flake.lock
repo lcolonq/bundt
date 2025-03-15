@@ -172,11 +172,11 @@
         "st": "st"
       },
       "locked": {
-        "lastModified": 1739925771,
-        "narHash": "sha256-2thrl3I3+Byqe4Mo7eHinq2/iamDd+H52RkPH3pkTiI=",
+        "lastModified": 1742002605,
+        "narHash": "sha256-HjZKbptOPxOhunRMCoA1n8OUI78UmfhpHNzk1gHIOdY=",
         "owner": "lcolonq",
         "repo": "newton",
-        "rev": "cfc11a79c914abc5012ffabb5b0697487ae1acfd",
+        "rev": "6ca8afe419b3eb28d68e24c61b5f25cf8ff0e740",
         "type": "github"
       },
       "original": {
