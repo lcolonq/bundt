@@ -50,15 +50,30 @@ export const _onInput = (el) => (f) => () => {
     });
 };
 
+let SOCKET = null;
+function connectRefreshSocket(url, iframe) {
+    if (!SOCKET) {
+        SOCKET = new WebSocket(url);
+        SOCKET.addEventListener("open", (ev) => {
+            console.log("connected");
+        });
+        SOCKET.addEventListener("close", (ev) => {
+            console.log("closed");
+            SOCKET = null;
+        });
+        SOCKET.addEventListener("error", (ev) => {
+            console.log("error");
+            SOCKET = null;
+        });
+        const select = document.getElementById("lcolonq-gizmo-select");
+        SOCKET.addEventListener("message", async (ev) => {
+            console.log(`incoming: ${ev.data}`)
+            if (select.value == ev.data) {
+                iframe.src = iframe.src;
+            }
+        });
+    }
+};
 export const _startBufferRefresh = (url) => (iframe) => () => {
-    const socket = new WebSocket(url);
-    socket.addEventListener("open", (ev) => {
-        console.log("connected");
-    });
-    const select = document.getElementById("lcolonq-gizmo-select");
-    socket.addEventListener("message", async (ev) => {
-        if (select.value == ev.data) {
-            iframe.src = iframe.src;
-        }
-    });
+    window.setInterval(() => connectRefreshSocket(url, iframe), 1000);
 };
