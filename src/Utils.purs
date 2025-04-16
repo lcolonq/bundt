@@ -26,7 +26,9 @@ import Web.Event.EventTarget as Ev.Tar
 import Web.HTML as HTML
 import Web.HTML.HTMLDocument as HTML.Doc
 import Web.HTML.HTMLInputElement as HTML.Input
+import Web.HTML.HTMLSelectElement as HTML.Select
 import Web.HTML.HTMLTextAreaElement as HTML.TextArea
+import Web.HTML.HTMLIFrameElement as HTML.IFrame
 import Web.HTML.Window as HTML.Win
 
 maybeToArray :: forall a. Maybe a -> Array a
@@ -102,6 +104,11 @@ getValue e = case HTML.Input.fromElement e of
   Just inp -> liftEffect $ HTML.Input.value inp
   Nothing -> liftEffect $ throw "element is not an input"
 
+getSelectValue :: forall m. MonadEffect m => DOM.Element -> m String
+getSelectValue e = case HTML.Select.fromElement e of
+  Just inp -> liftEffect $ HTML.Select.value inp
+  Nothing -> liftEffect $ throw "element is not a select"
+
 addClass :: forall m. MonadEffect m => String -> DOM.Element -> m Unit
 addClass c e = do
   cl <- liftEffect $ DOM.El.classList e
@@ -119,6 +126,11 @@ toggleClass c e = do
   cl <- liftEffect $ DOM.El.classList e
   _ <- liftEffect $ DOM.DTL.toggle cl c
   pure unit
+
+setIFrameSrc :: forall m. MonadEffect m => String -> DOM.Element -> m Unit
+setIFrameSrc src e = case HTML.IFrame.fromElement e of
+  Just iframe -> liftEffect $ HTML.IFrame.setSrc src iframe
+  Nothing -> liftEffect $ throw "element is not an iframe"
 
 checkAuth :: AuthInfo -> Aff String
 checkAuth auth = do

@@ -36,3 +36,29 @@ export const _submitShader = (url) => (shader) => () => {
         body: data,
     });
 };
+
+export const _addOption = (nm) => (el) => () => {
+    const opt = document.createElement("option");
+    opt.value = nm
+    opt.innerHTML = nm;
+    el.appendChild(opt);
+};
+
+export const _onInput = (el) => (f) => () => {
+    el.addEventListener("input", (ev) => {
+        f(ev.target.value)();
+    });
+};
+
+export const _startBufferRefresh = (url) => (iframe) => () => {
+    const socket = new WebSocket(url);
+    socket.addEventListener("open", (ev) => {
+        console.log("connected");
+    });
+    const select = document.getElementById("lcolonq-gizmo-select");
+    socket.addEventListener("message", async (ev) => {
+        if (select.value == ev.data) {
+            iframe.src = iframe.src;
+        }
+    });
+};

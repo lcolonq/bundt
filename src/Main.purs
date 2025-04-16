@@ -9,6 +9,7 @@ import Main.API as API
 import Main.Auth as Auth
 import Main.Button as Button
 import Main.Extension as Extension
+import Main.Gizmo as Gizmo
 import Main.Greencircle as Greencircle
 import Main.Menu as Menu
 import Main.OBS as OBS
@@ -28,4 +29,5 @@ main = case Config.mode of
   "auth" -> Auth.main
   "greencircle" -> Greencircle.main
   "throwshade" -> Throwshade.main
+  "gizmo" -> Gizmo.main
   _ -> throw $ "unknown mode: " <> Config.mode

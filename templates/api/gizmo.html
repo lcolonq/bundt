@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>LCOLONQ Gizmo Extravaganza FES</title>
+        <link rel="icon" href="./assets/mrgreen.png">
+        <link rel="stylesheet" type="text/css" href="./main.css">
+        <script type="module">
+CONFIG_SUBST
+         globalThis.mode = "gizmo";
+        </script>
+        <script type="module" src="./main.js"></script>
+    </head>
+    <body id="lcolonq-gizmo-body">
+      <div id="lcolonq-gizmo">
+        <div id="lcolonq-gizmo-top">
+          gizmo selection
+          <select name="gizmo" id="lcolonq-gizmo-select"></select>
+        </div>
+        <div id="lcolonq-gizmo-bottom">
+          <iframe id="lcolonq-gizmo-contents"></iframe>
+        </div>
+      </div>
+    </body>
+</html>

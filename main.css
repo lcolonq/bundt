@@ -571,3 +571,39 @@ a.lcolonq-button-link :active {
 #lcolonq-throwshade-current {
     margin: 0.5rem;
 }
+
+/* gizmo */
+#lcolonq-gizmo-body {
+    width: 100vw;
+    height: 100vh;
+}
+#lcolonq-gizmo {
+    width: 100%;
+    height: 100%;
+}
+#lcolonq-gizmo-top {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    right: 0px;
+    top: 0px;
+    color: white;
+    background-color: black;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+#lcolonq-gizmo-top:hover {
+    opacity: 1;
+}
+#lcolonq-gizmo-bottom {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+#lcolonq-gizmo-contents {
+    border: none;
+    width: 100%;
+    height: 100%;
+}

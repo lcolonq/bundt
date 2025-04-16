@@ -37,3 +37,15 @@ setShader s = liftEffect $ _setShader s
 foreign import _submitShader :: String -> String -> Effect Unit
 submitShader :: forall m. MonadEffect m => String -> m Unit
 submitShader el = liftEffect $ _submitShader (Config.secureApiServer <> "/redeem") el
+
+foreign import _addOption :: String -> DOM.El.Element -> Effect Unit
+addOption :: forall m. MonadEffect m => String -> DOM.El.Element -> m Unit
+addOption o el = liftEffect $ _addOption o el
+
+foreign import _onInput :: DOM.El.Element -> (String -> Effect Unit) -> Effect Unit
+onInput :: forall m. MonadEffect m => DOM.El.Element -> (String -> Effect Unit) -> m Unit
+onInput el f = liftEffect $ _onInput el f
+
+foreign import _startBufferRefresh :: String -> DOM.El.Element -> Effect Unit
+startBufferRefresh :: forall m. MonadEffect m => DOM.El.Element -> m Unit
+startBufferRefresh el = liftEffect $ _startBufferRefresh (Config.apiServer <> "/gizmo/events") el 
