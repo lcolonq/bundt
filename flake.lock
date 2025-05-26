@@ -2,11 +2,11 @@
   "nodes": {
     "crane": {
       "locked": {
-        "lastModified": 1739898326,
-        "narHash": "sha256-CqRBf9MKC8eiwDRg9akoWia57Nsjmq3S++YbkmT6p9M=",
+        "lastModified": 1742143293,
+        "narHash": "sha256-8oKPsMlqlOQ7qnTWvhBEcfVFY1WqHIcSilGVtaLAquw=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "680a2b47cdef830bca3edfd53383e3292154ba7b",
+        "rev": "de3bb0155823298161c1c0a7805f10d4b4074bbb",
         "type": "github"
       },
       "original": {
@@ -165,18 +165,20 @@
     },
     "newton": {
       "inputs": {
-        "crane": "crane",
-        "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs",
-        "rust-overlay": "rust-overlay",
-        "st": "st"
+        "nixpkgs": [
+          "newton",
+          "teleia",
+          "nixpkgs"
+        ],
+        "st": "st",
+        "teleia": "teleia"
       },
       "locked": {
-        "lastModified": 1742004878,
-        "narHash": "sha256-R35i9mEKouOfN8qoSMShRcWs7MyA6LQ03mGIh2Jy+GQ=",
+        "lastModified": 1748047398,
+        "narHash": "sha256-pU4aZ65sEt1sqRYTnR36P5mI8kNG0r3mO+hOXl9oDJE=",
         "owner": "lcolonq",
         "repo": "newton",
-        "rev": "66a4f9ea42217367d61293e2f62c746aed984b05",
+        "rev": "513a3dd4c5899063e80fd691600d9142910547c4",
         "type": "github"
       },
       "original": {
@@ -187,11 +189,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1739482815,
-        "narHash": "sha256-/5Lwtmp/8j+ro32gXzitucSdyjJ6QehfJCL58WNA7N0=",
+        "lastModified": 1741865919,
+        "narHash": "sha256-4thdbnP6dlbdq+qZWTsm4ffAwoS8Tiq1YResB+RP6WE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ba0939c506a03c60a765cd7f7c43794816540eec",
+        "rev": "573c650e8a14b2faa0041645ab18aed7e60f0c9a",
         "type": "github"
       },
       "original": {
@@ -325,15 +327,16 @@
       "inputs": {
         "nixpkgs": [
           "newton",
+          "teleia",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1739673031,
-        "narHash": "sha256-Z/GT8ebbvc4goxN4A0A5ACj26G1HaGJO+VetrPuC5Mo=",
+        "lastModified": 1742178793,
+        "narHash": "sha256-S2onMdoDS4tIYd3/Jc5oFEZBr2dJOgPrh9KzSO/bfDw=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "538528d55318e0c8af1c307dcf10b7629b988fc3",
+        "rev": "954582a766a50ebef5695a9616c93b5386418c08",
         "type": "github"
       },
       "original": {
@@ -375,6 +378,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "teleia": {
+      "inputs": {
+        "crane": "crane",
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs",
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1744392280,
+        "narHash": "sha256-WxSRuengy9YyxXhTXzDSeYzsR9sDnLC925YQY1W7YjI=",
+        "owner": "lcolonq",
+        "repo": "teleia",
+        "rev": "6f1269aab5f4d7e218e7f59bd82b34f6dcaed4a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lcolonq",
+        "repo": "teleia",
         "type": "github"
       }
     },
