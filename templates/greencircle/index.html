@@ -22,10 +22,8 @@
               textPath {
                   fill: black;
               }
-              @media (prefers-color-scheme: dark) {
-                  textPath {
-                      fill: white;
-                  }
+              [data-darkreader-mode="dynamic"] textPath {
+                  fill: white;
               }
             </style>
             <defs>
