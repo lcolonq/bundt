@@ -29,8 +29,8 @@ dist/api/%/newton: ${NEWTON_PATH}
 	rm -rf $@
 	mkdir -p $@
 	cp -r --no-preserve=mode,ownership $</snippets $@
-	install $</throwshade-*.js $@/throwshade.js
-	install $</throwshade-*.wasm $@/throwshade.wasm
+	install $</newton_throwshade-*.js $@/throwshade.js
+	install $</newton_throwshade-*.wasm $@/throwshade.wasm
 	chmod -R 0755 $@
 
 dist/api/%/main.js: main.js dist
