@@ -21,16 +21,22 @@ main.js: $(shell find src)
 	purs-nix bundle
 
 # api
-deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/main.css dist/api/deploy/newton
+deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/main.css dist/api/deploy/newton dist/api/deploy/ranch
 
-api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/main.css dist/api/test/newton
+api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/main.css dist/api/test/newton dist/api/test/ranch
 
 dist/api/%/newton: ${NEWTON_PATH}
 	rm -rf $@
 	mkdir -p $@
 	cp -r --no-preserve=mode,ownership $</snippets $@
-	install $</newton_throwshade-*.js $@/throwshade.js
-	install $</newton_throwshade-*.wasm $@/throwshade.wasm
+	install $</newton_shader-*.js $@/throwshade.js
+	install $</newton_shader-*.wasm $@/throwshade.wasm
+	chmod -R 0755 $@
+
+dist/api/%/ranch: ${RANCH_PATH}
+	rm -rf $@
+	mkdir -p $@
+	cp -r $</* $@/
 	chmod -R 0755 $@
 
 dist/api/%/main.js: main.js dist

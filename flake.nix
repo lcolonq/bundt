@@ -5,9 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     ps-tools.follows = "purs-nix/ps-tools";
     purs-nix.url = "github:purs-nix/purs-nix/ps-0.15";
-    newton = {
-      url = "github:lcolonq/newton";
-    };
+    newton.url = "github:lcolonq/newton";
+    ranch.url = "github:lcolonq/ranch";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -17,7 +16,8 @@
       ps-tools = inputs.ps-tools.legacyPackages.${system};
       purs-nix = inputs.purs-nix { inherit system; };
 
-      NEWTON_PATH = inputs.newton.packages.${system}.wasm.throwshade;
+      NEWTON_PATH = inputs.newton.packages.${system}.wasm.shader;
+      RANCH_PATH = inputs.ranch.packages.${system}.wasmDeploy;
 
       purescript = purs-nix.purs {
         dependencies = [
@@ -43,7 +43,7 @@
       bundleAPI = pkgs.stdenv.mkDerivation  {
         name = "bundt-bundle-api";
         src = ./.;
-        inherit NEWTON_PATH;
+        inherit NEWTON_PATH RANCH_PATH;
         buildInputs = [
           (purescript.command {})
           pkgs.m4
@@ -88,7 +88,7 @@
       };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
-        inherit NEWTON_PATH;
+        inherit NEWTON_PATH RANCH_PATH;
         buildInputs = [
           pkgs.nodejs
           (purescript.command {})
