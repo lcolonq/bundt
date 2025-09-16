@@ -1,7 +1,9 @@
 module UI where
 
 import Prelude
+
 import Config as Config
+import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Class (class MonadEffect, liftEffect)
 import Web.DOM.Element as DOM.El
@@ -26,9 +28,13 @@ foreign import _redirect :: String -> Effect Unit
 redirect :: forall m. MonadEffect m => String -> m Unit
 redirect url = liftEffect $ _redirect url
 
-foreign import _submitRedeem :: String -> DOM.El.Element -> Effect Unit
-submitRedeem :: forall m. MonadEffect m => DOM.El.Element -> m Unit
-submitRedeem el = liftEffect $ _submitRedeem (Config.secureApiServer <> "/redeem") el
+foreign import _menuRedeemData :: (String -> String -> Tuple String String) -> DOM.El.Element -> Effect (Tuple String String)
+menuRedeemData :: forall m. MonadEffect m => DOM.El.Element -> m (Tuple String String)
+menuRedeemData el = liftEffect $ _menuRedeemData Tuple el
+
+foreign import _submitRedeem :: String -> String -> String -> Effect Unit
+submitRedeem :: forall m. MonadEffect m => String -> String -> m Unit
+submitRedeem redeem inp = liftEffect $ _submitRedeem (Config.secureApiServer <> "/redeem") redeem inp
 
 foreign import _setShader :: String -> Effect Unit
 setShader :: forall m. MonadEffect m => String -> m Unit

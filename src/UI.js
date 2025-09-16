@@ -10,9 +10,13 @@ export const _redirect = (url) => () => {
     window.location.href = url;
 };
 
-export const _submitRedeem = (url) => (el) => () => {
+export const _menuRedeemData = (cons) => (el) => () => {
     const redeem = el.children[0].textContent;
     const inp = el.children[1]?.value;
+    return cons(redeem)(inp);
+};
+
+export const _submitRedeem = (url) => (redeem) => (inp) => () => {
     console.log(redeem, inp);
     const data = new FormData();
     data.append("name", redeem);

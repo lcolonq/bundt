@@ -3,6 +3,7 @@ module Main.Menu where
 import Prelude
 
 import Data.Foldable (for_)
+import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Effect.Class (liftEffect)
@@ -19,4 +20,5 @@ main = launchAff_ do
   boxes <- queryAll ".lcolonq-menu-box"
   for_ boxes \box -> do
     listen box "click" \_ev -> do
-      UI.submitRedeem box
+      Tuple redeem inp <- UI.menuRedeemData box
+      UI.submitRedeem redeem inp

@@ -607,3 +607,59 @@ a.lcolonq-button-link :active {
     width: 100%;
     height: 100%;
 }
+
+/* soundboard */
+#lcolonq-soundboard {
+    color: white;
+    background-color: black;
+    overflow-y: scroll;
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#lcolonq-soundboard-container {
+    top: 0px;
+    width: min(90vw, 30rem);
+    height: 100%;
+}
+#lcolonq-soundboard-entryframe {
+    overflow: hidden;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+#lcolonq-soundboard-entry {
+    font-size: 30pt;
+    width: calc(100% - 2.2rem);
+    padding: 1rem;
+    color: white;
+    background-color: #111111;
+    border: 0.1rem solid darkgrey;
+}
+#lcolonq-soundboard-entry:focus {
+    outline: none;
+}
+#lcolonq-soundboard-entrytext {
+    white-space: nowrap;
+    color: darkgrey;
+}
+#lcolonq-soundboard-docs {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-auto-rows: minmax(10rem, auto);
+    margin-bottom: 1rem;
+}
+.lcolonq-soundboard-doc {
+    border: 0.1rem solid darkgrey;
+    padding: 0.5rem;
+}
+.lcolonq-soundboard-doc h3 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0.5rem;
+}

@@ -15,6 +15,7 @@ import Main.Menu as Menu
 import Main.OBS as OBS
 import Main.Pubnix as Pubnix
 import Main.Register as Register
+import Main.Soundboard as Soundboard
 import Main.Throwshade as Throwshade
 
 main :: Effect Unit
@@ -26,6 +27,7 @@ main = case Config.mode of
   "button" -> Button.main
   "register" -> Register.main
   "menu" -> Menu.main
+  "soundboard" -> Soundboard.main
   "auth" -> Auth.main
   "greencircle" -> Greencircle.main
   "throwshade" -> Throwshade.main

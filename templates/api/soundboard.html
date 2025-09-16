@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>NoiseBlaster 9999</title>
+        <link rel="icon" href="./assets/mrgreen.png">
+        <link rel="stylesheet" type="text/css" href="./main.css">
+        <script type="module">
+CONFIG_SUBST
+         globalThis.mode = "soundboard";
+        </script>
+        <script type="module" src="./main.js"></script>
+    </head>
+    <body id="lcolonq-soundboard">
+      <div id="lcolonq-soundboard-container">
+        <div id="lcolonq-soundboard-entryframe">
+          <input id="lcolonq-soundboard-entry" type="text">
+          <span id="lcolonq-soundboard-entrytext">noise noise noise noise noise noise noise noise noise noise</span>
+        </div>
+        <div id="lcolonq-soundboard-docs">
+          <div class="lcolonq-soundboard-doc">
+            <h3>sounds</h3>
+            there's a bunch of em.
+            maybe one day we'll list them here!
+          </div>
+          <div class="lcolonq-soundboard-doc">
+            <h3>effects</h3>
+            <ul>
+              <li>
+                <pre>reverse</pre>
+                Reverse the selected sound.
+              </li>
+              <li>
+                <pre>&lt;num&gt; tempo</pre>
+                Speed up or slow down the selected sound. Values greater than 1 will increase the speed, values between 0 and 1 will decrease the speed.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
