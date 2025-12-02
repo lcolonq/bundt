@@ -1,4 +1,4 @@
-.PHONY: all dist clean api deploy_pubnix pubnix extension
+.PHONY: all clean dist extension deploy_api api deploy_pubnix pubnix deploy_auth auth deploy_greencircle greencircle
 
 TEMPLATES_API=$(shell ls templates/api)
 TEMPLATES_PUBNIX=$(shell ls templates/pubnix)
@@ -6,6 +6,10 @@ TEMPLATES_AUTH=$(shell ls templates/auth)
 TEMPLATES_GREENCIRCLE=$(shell ls templates/greencircle)
 
 all: api pubnix extension auth greencircle
+
+clean:
+	rm main.js
+	rm -r dist/
 
 dist:
 	mkdir -p dist/api/test
@@ -19,6 +23,29 @@ dist:
 
 main.js: $(shell find src)
 	purs-nix bundle
+
+# extension
+extension: dist dist/extension/assets dist/extension/manifest.json dist/extension/background.js dist/extension/main.js dist/extension/main.css dist/extension/config.js
+
+dist/extension/main.css: extension/main.css dist
+	cp $< $@
+
+dist/extension/manifest.json: extension/manifest.dhall dist
+	dhall-to-json <$< >$@
+
+dist/extension/config.js: config/extension.js dist
+	cp $< $@
+
+dist/extension/main.js: main.js dist
+	cp $< $@
+
+dist/extension/%: extension/% dist
+	cp $< $@
+
+dist/extension/assets: $(shell find assets) dist
+	rm -rf $@
+	mkdir -p $@
+	cp -r assets/* $@
 
 # api
 deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/main.css dist/api/deploy/newton dist/api/deploy/ranch
@@ -122,30 +149,3 @@ dist/greencircle/%/$(template): config/%.m4 templates/greencircle/$(template)
 	sh -c "m4 $$^ >$$@"
 endef
 $(foreach template,$(TEMPLATES_GREENCIRCLE), $(eval $(GEN_RULE_GREENCIRCLE)))
-
-# extension
-extension: dist dist/extension/assets dist/extension/manifest.json dist/extension/background.js dist/extension/main.js dist/extension/main.css dist/extension/config.js
-
-dist/extension/main.css: extension/main.css dist
-	cp $< $@
-
-dist/extension/manifest.json: extension/manifest.dhall dist
-	dhall-to-json <$< >$@
-
-dist/extension/config.js: config/extension.js dist
-	cp $< $@
-
-dist/extension/main.js: main.js dist
-	cp $< $@
-
-dist/extension/%: extension/% dist
-	cp $< $@
-
-dist/extension/assets: $(shell find assets) dist
-	rm -rf $@
-	mkdir -p $@
-	cp -r assets/* $@
-
-clean:
-	rm main.js
-	rm -r dist/

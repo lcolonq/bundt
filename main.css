@@ -663,3 +663,71 @@ a.lcolonq-button-link :active {
     margin-top: 0px;
     margin-bottom: 0.5rem;
 }
+
+/* advent */
+#lcolonq-advent {
+    overflow-y: scroll;
+    color: white;
+    background-color: black;
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#lcolonq-advent-container {
+    height: 100%;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+.lcolonq-advent-header {
+    text-align: center;
+    padding-bottom: 1rem;
+}
+.lcolonq-advent-header h1 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    font-size: 15vw;
+}
+.lcolonq-advent-subtitle {
+    font-weight: bold;
+}
+.lcolonq-advent-body {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 40rem;
+    text-align: justify;
+}
+.lcolonq-advent-link {
+    text
+}
+.lcolonq-advent-puzzle {
+    display: block;
+    text-decoration: none;
+    color: white;
+    border: solid;
+    border-color: white;
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+.lcolonq-advent-puzzle:hover {
+    background-color: #111111;
+}
+.lcolonq-advent-puzzle h3 {
+    margin: 0px;
+}
+.lcolonq-advent-puzzle-author {
+    font-weight: bold;
+}
+.lcolonq-advent-puzzle-body {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.lcolonq-advent-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+.lcolonq-advent-submit {
+    display: none;
+}
