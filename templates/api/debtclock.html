@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>LCOLONQ DEBT CLOCK</title>
+    <style>
+      :root {
+          color-scheme: dark;
+      }
+      body {
+          margin: 0px;
+      }
+      #debtclock {
+          position: relative;
+          top: 0px;
+          left: 0px;
+          width: 3548px;
+          height: 2223px;
+          background: url("./assets/debtclonk.png");
+      }
+      #secretwindow-box {
+          position: relative;
+          top: 99px;
+          left: 2814px;
+          width: 547px;
+          height: 178px;
+      }
+      .blurb {
+          position: absolute;
+          font-size: 40pt;
+          color: black;
+          z-index: 2;
+      }
+      .blurb-small {
+          position: absolute;
+          font-size: 30pt;
+          color: black;
+          z-index: 2;
+      }
+    </style>
+    <script type="module">
+        let DEBTS_CUR = null;
+        let DEBTS_PREV = null;
+        let COUNTER = 0;
+        setInterval(async () => {
+            if (COUNTER % 100 == 0 || !DEBTS_CUR || !DEBTS_PREV) {
+                const resp = await fetch("http://localhost:8080/api/debt");
+                const d = await resp.json();
+                console.log(d);
+                DEBTS_PREV = DEBTS_CUR;
+                DEBTS_CUR = d;
+            }
+            const p = COUNTER / 100;
+            if (DEBTS_PREV && DEBTS_CUR) {
+                for (let k of Object.keys(DEBTS_PREV)) {
+                    const cur = DEBTS_CUR[k] || 0;
+                    const prev = DEBTS_PREV[k] || 0;
+                    const v = prev * (1 - p) + cur * p;
+                    const elem = document.getElementById("d-" + k);
+                    if (elem) {
+                        elem.innerText = v.toFixed(k.includes("ratio") ? 6 : 2).toString();
+                    }
+                }
+            }
+            COUNTER = (COUNTER + 1) % 100;
+        }, 100);
+        document.getElementById("secretwindow-box").addEventListener("click", () => {
+            alert("hiiiiiii");
+        });
+        function box(cl, field, x, y) {
+            let parent = document.getElementById("debtclock");
+            let child = document.createElement("span");
+            child.className = cl;
+            child.id = `d-${field}`;
+            child.style = `right: ${3548-x}px; top: ${y}px;`;
+            child.innerText = "N/A";
+            parent.appendChild(child);
+        }
+      box("blurb", "clones-unredeemed", 597, 340);
+      box("blurb", "clones-ellg-unredeemed", 816, 350);
+      box("blurb", "clones-tyumici-unredeemed", 1035, 350);
+      box("blurb", "equity-unredeemed", 500, 475);
+      box("blurb", "total-equity", 966, 475);
+      box("blurb", "seconds", 658, 590);
+      box("blurb-small", "total-boosts", 927, 600);
+      box("blurb", "docket-entries", 436, 885);
+      box("blurb", "irons-in-fires", 830, 885);
+      box("blurb", "planes-owned", 1209, 885);
+      box("blurb", "danger", 1566, 885);
+      box("blurb", "tcp-connections", 438, 1600);
+      box("blurb", "total-humans", 1600, 710);
+      box("blurb", "total-gamers", 2080, 710);
+      box("blurb", "gamer-ratio", 2580, 710);
+      box("blurb", "nix-store", 532, 1068);
+      box("blurb", "disk-usage", 980, 1068);
+      box("blurb", "nix-store-glibc", 1565, 1068);
+      box("blurb", "flatpaks-installed", 528, 1256);
+      box("blurb", "containers", 778, 1256);
+      box("blurb", "appimages-installed", 1290, 1256);
+      box("blurb", "hours-wasted", 1544, 1256);
+      box("blurb", "streams-spent-on-this", 818, 1590);
+    </script>
+  </head>
+  <body>
+    <div id="debtclock">
+      <div id="secretwindow-box"></div>
+    </div>
+  </body>
+</html>
