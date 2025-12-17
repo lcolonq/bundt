@@ -72,8 +72,8 @@
             let parent = document.getElementById("debtclock");
             let child = document.createElement("span");
             child.className = cl;
-            child.id = `d-${field}`;
-            child.style = `right: ${3548-x}px; top: ${y}px;`;
+            child.id = "d-" + field.toString();
+            child.style = "right: " + (3548-x).toString() + "px; top: " + y.toString() + "px;";
             child.innerText = "N/A";
             parent.appendChild(child);
         }
