@@ -40,12 +40,15 @@
       }
     </style>
     <script type="module">
+      CONFIG_SUBST
+    </script>
+    <script type="module">
         let DEBTS_CUR = null;
         let DEBTS_PREV = null;
         let COUNTER = 0;
         setInterval(async () => {
             if (COUNTER % 100 == 0 || !DEBTS_CUR || !DEBTS_PREV) {
-                const resp = await fetch("http://localhost:8080/api/debt");
+                const resp = await fetch(globalThis.apiServer + "/debt");
                 const d = await resp.json();
                 console.log(d);
                 DEBTS_PREV = DEBTS_CUR;
