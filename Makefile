@@ -8,7 +8,7 @@ TEMPLATES_GREENCIRCLE=$(shell ls templates/greencircle)
 all: api pubnix extension auth greencircle
 
 clean:
-	rm main.js
+	rm -r build/
 	rm -r dist/
 
 dist:
@@ -21,7 +21,7 @@ dist:
 	mkdir -p dist/greencircle/test
 	mkdir -p dist/greencircle/deploy
 
-main.js: $(shell find src)
+build/main.js: $(shell find src)
 	purs-nix bundle
 
 # extension
@@ -36,7 +36,7 @@ dist/extension/manifest.json: extension/manifest.dhall dist
 dist/extension/config.js: config/extension.js dist
 	cp $< $@
 
-dist/extension/main.js: main.js dist
+dist/extension/main.js: build/main.js dist
 	cp $< $@
 
 dist/extension/%: extension/% dist
@@ -48,9 +48,9 @@ dist/extension/assets: $(shell find assets) dist
 	cp -r assets/* $@
 
 # api
-deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/main.css dist/api/deploy/newton dist/api/deploy/ranch
+deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/newton dist/api/deploy/ranch
 
-api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/main.css dist/api/test/newton dist/api/test/ranch
+api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/newton dist/api/test/ranch
 
 dist/api/%/newton: ${NEWTON_PATH}
 	rm -rf $@
@@ -66,10 +66,7 @@ dist/api/%/ranch: ${RANCH_PATH}
 	cp -r $</* $@/
 	chmod -R 0755 $@
 
-dist/api/%/main.js: main.js dist
-	cp $< $@
-
-dist/api/%/main.css: main.css dist
+dist/api/%/main.js: build/main.js dist
 	cp $< $@
 
 dist/api/%/assets: $(shell find assets) dist
@@ -84,15 +81,12 @@ endef
 $(foreach template,$(TEMPLATES_API), $(eval $(GEN_RULE_API)))
 
 # pubnix
-deploy_pubnix: dist $(addprefix dist/pubnix/deploy/,$(TEMPLATES_PUBNIX)) dist/pubnix/deploy/assets dist/pubnix/deploy/main.js dist/pubnix/deploy/main.css
+deploy_pubnix: dist $(addprefix dist/pubnix/deploy/,$(TEMPLATES_PUBNIX)) dist/pubnix/deploy/assets dist/pubnix/deploy/main.js
 	rsync -av dist/pubnix/deploy/ "pub.colonq.computer:~/public_html/"
 
-pubnix: dist $(addprefix dist/pubnix/test/,$(TEMPLATES_PUBNIX)) dist/pubnix/test/assets dist/pubnix/test/main.js dist/pubnix/test/main.css
+pubnix: dist $(addprefix dist/pubnix/test/,$(TEMPLATES_PUBNIX)) dist/pubnix/test/assets dist/pubnix/test/main.js
 
-dist/pubnix/%/main.js: main.js dist
-	cp $< $@
-
-dist/pubnix/%/main.css: main.css dist
+dist/pubnix/%/main.js: build/main.js dist
 	cp $< $@
 
 dist/pubnix/%/assets: $(shell find assets) dist
@@ -107,14 +101,11 @@ endef
 $(foreach template,$(TEMPLATES_PUBNIX), $(eval $(GEN_RULE_PUBNIX)))
 
 # auth
-deploy_auth: dist $(addprefix dist/auth/deploy/,$(TEMPLATES_AUTH)) dist/auth/deploy/assets dist/auth/deploy/main.js dist/auth/deploy/main.css
+deploy_auth: dist $(addprefix dist/auth/deploy/,$(TEMPLATES_AUTH)) dist/auth/deploy/assets dist/auth/deploy/main.js
 
-auth: dist $(addprefix dist/auth/test/,$(TEMPLATES_AUTH)) dist/auth/test/assets dist/auth/test/main.js dist/auth/test/main.css
+auth: dist $(addprefix dist/auth/test/,$(TEMPLATES_AUTH)) dist/auth/test/assets dist/auth/test/main.js
 
-dist/auth/%/main.js: main.js dist
-	cp $< $@
-
-dist/auth/%/main.css: main.css dist
+dist/auth/%/main.js: build/main.js dist
 	cp $< $@
 
 dist/auth/%/assets: $(shell find assets) dist
@@ -129,14 +120,11 @@ endef
 $(foreach template,$(TEMPLATES_AUTH), $(eval $(GEN_RULE_AUTH)))
 
 # greencircle
-deploy_greencircle: dist $(addprefix dist/greencircle/deploy/,$(TEMPLATES_GREENCIRCLE)) dist/greencircle/deploy/assets dist/greencircle/deploy/main.js dist/greencircle/deploy/main.css
+deploy_greencircle: dist $(addprefix dist/greencircle/deploy/,$(TEMPLATES_GREENCIRCLE)) dist/greencircle/deploy/assets dist/greencircle/deploy/main.js
 
-greencircle: dist $(addprefix dist/greencircle/test/,$(TEMPLATES_GREENCIRCLE)) dist/greencircle/test/assets dist/greencircle/test/main.js dist/greencircle/test/main.css
+greencircle: dist $(addprefix dist/greencircle/test/,$(TEMPLATES_GREENCIRCLE)) dist/greencircle/test/assets dist/greencircle/test/main.js
 
-dist/greencircle/%/main.js: main.js dist
-	cp $< $@
-
-dist/greencircle/%/main.css: main.css dist
+dist/greencircle/%/main.js: build/main.js dist
 	cp $< $@
 
 dist/greencircle/%/assets: $(shell find assets) dist

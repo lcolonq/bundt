@@ -8,6 +8,7 @@ import Effect.Exception (throw)
 import Main.API as API
 import Main.Auth as Auth
 import Main.Button as Button
+import Main.Charsheet as Charsheet
 import Main.Extension as Extension
 import Main.Gizmo as Gizmo
 import Main.Greencircle as Greencircle
@@ -32,4 +33,5 @@ main = case Config.mode of
   "greencircle" -> Greencircle.main
   "throwshade" -> Throwshade.main
   "gizmo" -> Gizmo.main
+  "charsheet" -> Charsheet.main
   _ -> throw $ "unknown mode: " <> Config.mode

@@ -38,6 +38,15 @@
         dir = ./.;
         srcs = [ "src" ];
       };
+      pursNixCommand = purescript.command {
+        bundle = {
+          esbuild = {
+            format = "esm";
+            log-level = "warning";
+            outfile = "build/main.js";
+          };
+        };
+      };
       bundt = purescript.bundle {};
 
       bundleAPI = pkgs.stdenv.mkDerivation  {
@@ -45,7 +54,7 @@
         src = ./.;
         inherit NEWTON_PATH RANCH_PATH;
         buildInputs = [
-          (purescript.command {})
+          pursNixCommand
           pkgs.m4
         ];
         buildPhase = "
@@ -60,7 +69,7 @@
         name = "bundt-bundle-auth";
         src = ./.;
         buildInputs = [
-          (purescript.command {})
+          pursNixCommand
           pkgs.m4
         ];
         buildPhase = "
@@ -75,7 +84,7 @@
         name = "bundt-bundle-greencircle";
         src = ./.;
         buildInputs = [
-          (purescript.command {})
+          pursNixCommand
           pkgs.m4
         ];
         buildPhase = "
@@ -91,7 +100,7 @@
         inherit NEWTON_PATH RANCH_PATH;
         buildInputs = [
           pkgs.nodejs
-          (purescript.command {})
+          pursNixCommand
           ps-tools.for-0_15.purescript-language-server
           purs-nix.esbuild
           purs-nix.purescript
