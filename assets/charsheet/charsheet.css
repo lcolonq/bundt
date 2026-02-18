@@ -11,7 +11,6 @@
         margin: 0.5rem !important;
         width: calc(100vw - 1rem) !important;
         height: calc(100vh - 1rem) !important;
-        overflow: scroll !important;
         grid-template-columns: 1fr !important;
         grid-auto-rows: 60vh !important;
     }
@@ -55,6 +54,45 @@ body {
     opacity: 1.0 !important;
 }
 
+#error {
+    border: 1px solid lightgrey;
+    background-color: white;
+    position: fixed;
+    left: 20vw;
+    top: 20vh;
+    width: 60vw;
+    height: 60vh;
+    padding: 0.5rem;
+    align-content: center;
+}
+#error > div {
+    opacity: 0.0;
+    transition: opacity 2s;
+}
+#error-message {
+    color: darkgrey;
+    font-size: 4rem;
+    font-variant: small-caps;
+    margin-top: -3rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+.error-anim-unfold {
+    animation-duration: 0.5s;
+    animation-name: error-unfold;
+}
+@keyframes error-unfold {
+    from {
+        left: 50vw;
+        width: 0vw;
+    }
+    to {
+        left: 20vw;
+        width: 60vw;
+    }
+}
+
 #contents {
     border: 1px solid lightgrey;
     background-color: white;
@@ -70,7 +108,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 0.5rem;
-    overflow: hidden;
+    overflow: scroll;
 }
 .contents-anim-unfold {
     animation-duration: 0.5s;
@@ -96,6 +134,7 @@ body {
     grid-column-end: span 2;
 }
 #name > h1 {
+    text-transform: uppercase;
     position: absolute;
     transform: translateZ(0);
     backface-visibility: hidden;

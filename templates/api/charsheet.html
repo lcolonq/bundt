@@ -14,6 +14,11 @@ CONFIG_SUBST
         <script type="module" src="./assets/charsheet/charsheet.js"></script>
     </head>
     <body>
+      <div id="error" class="invisible">
+        <div id="error-message">
+          an error occured
+        </div>
+      </div>
       <div id="contents" class="invisible">
         <div id="name">
           <h1>nameingwaying</h1>
@@ -32,25 +37,25 @@ CONFIG_SUBST
         <div id="infobox1" class="infobox">
           <div class="infobox-title">Table 1: Numerical Characteristics</div>
           <table>
-            <tr><td>equity</td><td>2%</td></tr>
-            <tr><td>boost power</td><td>2cc</td></tr>
-            <tr><td>talent points</td><td>1</td></tr>
-            <tr><td>cards drawn</td><td>99</td></tr>
+            <tr><td>equity</td><td id="info-equity">N/A</td></tr>
+            <tr><td>boost power</td><td id="info-boost">N/A</td></tr>
+            <tr><td>talent points</td><td id="info-talentpoints">N/A</td></tr>
+            <tr><td>cards drawn</td><td id="info-cardsdrawn">N/A</td></tr>
           </table>
           <div class="infobox-title">Table 1.1: Base Attributes</div>
           <table>
-            <tr><td>power</td><td>3</td></tr>
-            <tr><td>speed</td><td>17</td></tr>
-            <tr><td>majjyka</td><td>10</td></tr>
-            <tr><td>wisdom</td><td>5</td></tr>
+            <tr><td>power</td><td id="info-power">N/A</td></tr>
+            <tr><td>speed</td><td id="info-speed">N/A</td></tr>
+            <tr><td>majjyka</td><td id="info-majjyka">N/A</td></tr>
+            <tr><td>wisdom</td><td id="info-wisdom">N/A</td></tr>
           </table>
         </div>
         <div id="infobox2" class="infobox">
           <div class="infobox-title">Table 2: Tendencies / Affiliations</div>
           <table>
-            <tr><td>faction</td><td>UNALIGNED</td></tr>
-            <tr><td>elemental affinity</td><td>fire</td></tr>
-            <tr><td>color</td><td>#cccccc</td></tr>
+            <tr><td>faction</td><td id="info-faction">N/A</td></tr>
+            <tr><td>elemental affinity</td><td id="info-element">N/A</td></tr>
+            <tr><td>color</td><td id="info-color">N/A</td></tr>
           </table>
         </div>
       </div>

@@ -24,6 +24,22 @@ function showContents() {
     }
 }
 
+function showError() {
+    let elem = document.getElementById("error");
+    if (elem) {
+        elem.classList.remove("invisible");
+        elem.classList.add("error-anim-unfold");
+        let timeout = 500;
+        for (let c of elem.children) {
+            setTimeout(
+                () => c.classList.add("opaque"),
+                timeout
+            );
+            timeout += 200;
+        }
+    }
+}
+
 function scaleName() {
     let elem = document.getElementById("name");
     if (elem && elem.firstElementChild) {
@@ -167,7 +183,6 @@ function initGL() {
     UNIFORM_VIEW = GL.getUniformLocation(prog, "view");
     UNIFORM_POSITION = GL.getUniformLocation(prog, "position");
     const cube = uploadCube();
-    uploadImage("./assets/l.png");
     VERTS = cube.verts;
     IDXS = cube.idxs;
     requestAnimationFrame(render);
@@ -197,10 +212,28 @@ function render() {
     requestAnimationFrame(render);
 }
 
-initGL();
-setName("LCOLONQ");
+function setField(nm, v) {
+    const elem = document.getElementById("info-" + nm);
+    if (elem) {
+        elem.innerText = v.toString();
+    }
+}
 
-setTimeout(
-    () => showContents(),
-    1000
-);
+initGL();
+
+const uid = location.hash.slice(1);
+const resp = await fetch(`${globalThis.apiServer}/user/info/${uid}`);
+if (!resp.ok) {
+    showError();
+} else {
+    uploadImage(`${globalThis.apiServer}/user/avatar/${uid}.png`);
+    const info = await resp.json()
+    setName(info.properties["name"]);
+    for (let nm in info.stats) {
+        setField(nm, info.stats[nm]);
+    }
+    for (let nm in info.properties) {
+        setField(nm, info.properties[nm]);
+    }
+    showContents();
+}
