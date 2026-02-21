@@ -12,8 +12,12 @@ CONFIG_SUBST
         </script>
         <script type="module" src="./assets/charsheet/gl-matrix-min.js"></script>
         <script type="module" src="./assets/charsheet/charsheet.js"></script>
+        <script type="module">
+          document.addEventListener("DOMContentLoaded", globalThis.mainPublic);
+        </script>
     </head>
     <body>
+      <script>0</script>
       <div id="error" class="invisible">
         <div id="error-message">
           an error occured
@@ -21,7 +25,8 @@ CONFIG_SUBST
       </div>
       <div id="contents" class="invisible">
         <div id="name">
-          <h1>nameingwaying</h1>
+          <h1>player unknown</h1>
+          <a id="login" href="https://secure.colonq.computer/charedit">login</a>
         </div>
         <div id="visualization">
           <canvas id="canvas" width="720" height="720"></canvas>

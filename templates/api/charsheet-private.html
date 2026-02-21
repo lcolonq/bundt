@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>LCOLONQ CHARACTER BUILDING EXERCISE</title>
+        <link rel="icon" href="./assets/mrgreen.png">
+        <link rel="stylesheet" type="text/css" href="./assets/charsheet/charsheet.css">
+        <script type="module">
+CONFIG_SUBST
+         globalThis.mode = "charsheet";
+        </script>
+        <script type="module" src="./assets/charsheet/gl-matrix-min.js"></script>
+        <script type="module" src="./assets/charsheet/charsheet.js"></script>
+        <script type="module">
+          document.addEventListener("DOMContentLoaded", globalThis.mainSecure);
+        </script>
+    </head>
+    <body>
+      <script>0</script>
+      <div id="edit-scrollable">
+        <div id="edit-talentarea">
+        </div>
+        <div id="error" class="invisible">
+          <div id="error-message">
+            an error occured
+          </div>
+        </div>
+        <div id="edit-contents">
+          <div id="name" class="edit-panel">
+            <h1>player unknown</h1>
+            <span id="edit-mode">edit mode</span>
+          </div>
+          <div id="edit-infobox">
+            <div class="infobox-title">Table 3: Statistical Summary</div>
+            <table>
+              <tr><td>unspent points</td><td id="info-talentpoints">N/A</td></tr>
+            </table>
+          </div>
+          <div id="edit-selected-tooltip-box" data-skipfade="true">
+            <div id="edit-selected-tooltip-name" class="infobox-title">empty</div>
+            <div id="edit-selected-tooltip">empty</div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
