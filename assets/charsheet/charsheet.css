@@ -143,10 +143,12 @@ body {
     font-size: 100rem;
 }
 #login {
-    position: absolute;
     z-index: 5;
     color: black;
     text-decoration: none;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
 }
 #visualization {
     position: relative;
@@ -185,10 +187,21 @@ body {
     width: 100%;
     height: 100%;
 }
+
 #badges {
     position: absolute;
-    bottom: 0.5rem;
-    right: 0.5rem;
+    z-index: 5;
+    margin: 0.5rem;
+    user-select: none;
+}
+.badge {
+    font-size: 0.85rem;
+    line-height: 1;
+}
+.badge > img {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-top;
 }
 
 .infobox {

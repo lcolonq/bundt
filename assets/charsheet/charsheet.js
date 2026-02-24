@@ -23,6 +23,13 @@ function showContents() {
             );
             timeout += 200;
         }
+        let badges = document.getElementById("badges");
+        if (badges) {
+            setTimeout(
+                () => badges.classList.add("opaque"),
+                timeout
+            );
+        }
     }
 }
 
@@ -231,11 +238,28 @@ function setField(nm, v) {
     }
 }
 
-async function displayUser(uid) {
-    initGL();
+function addBadge(b) {
+    const badges = document.getElementById("badges");
+    const elem = document.createElement("span");
+    elem.classList.add("badge");
+    elem.title = b.desc;
+    if (b.mode == "text") {
+        elem.innerText = b.text;
+    } else if (b.mode == "icon") {
+        const img = document.createElement("img");
+        img.src = `${globalThis.apiServer}/badge/icon/${b.bid}.png`;
+        elem.appendChild(img);
+    } else {
+        return;
+    }
+    badges.appendChild(elem);
+}
+
+async function fetchUser(uid) {
     const resp = await fetch(`${globalThis.apiServer}/user/info/${uid}`);
     if (!resp.ok) {
         showError("user not found");
+        return false;
     } else {
         uploadImage(`${globalThis.apiServer}/user/avatar/${uid}.png`);
         const info = await resp.json()
@@ -246,13 +270,27 @@ async function displayUser(uid) {
         for (let nm in info.properties) {
             setField(nm, info.properties[nm]);
         }
-        showContents();
+        const badges = document.getElementById("badges");
+        if (badges) {
+            const badges_resp = await fetch(`${globalThis.apiServer}/user/badges/${uid}`);
+            if (badges_resp.ok) {
+                const bs = await badges_resp.json();
+                console.log(bs);
+                for (let b of bs) {
+                    addBadge(b);
+                }
+            }
+        }
+        return true;
     }
 }
 
 globalThis.mainPublic = async () => {
     const uid = location.hash.slice(1);
-    displayUser(uid);
+    initGL();
+    if (await fetchUser(uid)) {
+        showContents();
+    }
 }
 
 async function getAuthedUser() {
@@ -282,7 +320,6 @@ async function fetchTalents() {
     const resp = await fetch(`${globalThis.apiServer}/talents`);
     return await resp.json();
 }
-
 async function renderTalent(tid, x, y) {
     const p = document.getElementById("edit-talentarea");
     const elem = document.createElement("div");
@@ -296,7 +333,6 @@ async function renderTalent(tid, x, y) {
     elem.appendChild(img);
     p.appendChild(elem);
 }
-
 function selectTalent(elem) {
     const p = document.getElementById("edit-talentarea");
     for (let c of p.children) {
@@ -318,30 +354,15 @@ function selectTalent(elem) {
     }
 }
 
-async function displayUserSecure(uid) {
-    const resp = await fetch(`${globalThis.apiServer}/user/info/${uid}`);
-    if (!resp.ok) {
-        showError("user not found");
-    } else {
-        const info = await resp.json()
-        setName(info.properties["name"]);
-        for (let nm in info.stats) {
-            setField(nm, info.stats[nm]);
-        }
-        for (let nm in info.properties) {
-            setField(nm, info.properties[nm]);
-        }
-        showContentsSecure();
-    }
-}
-
 globalThis.mainSecure = async () => {
     const scrollable = document.getElementById("edit-scrollable");
     const basex = window.innerWidth + window.innerWidth / 2 + 20;
     const basey = window.innerHeight + 20;
     scrollable.scroll(window.innerWidth, window.innerHeight);
     const uid = await getAuthedUser();
-    displayUserSecure(uid);
+    if (await fetchUser(uid)) {
+        showContentsSecure();
+    }
     TALENTS = await fetchTalents();
     renderTalent("bigjoel", basex + 0, basey + 0);
     renderTalent("shaderopacity", basex + 100, basey + 0);
