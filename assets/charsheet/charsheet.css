@@ -46,6 +46,17 @@ body {
     background-size: 1rem 1rem;
 }
 
+button {
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+button:active {
+    background-color: darkgrey;
+}
+
 .invisible {
     visibility: hidden !important;
 }
@@ -213,7 +224,7 @@ body {
 }
 
 table {
-    width: 80%;
+    width: 100%;
     margin-bottom: 0.5rem;
 }
 table tr td:first-child {
@@ -222,6 +233,12 @@ table tr td:first-child {
 
 #edit-mode {
     position: absolute;
+    z-index: 5;
+}
+#talent-reset {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
     z-index: 5;
 }
 
@@ -295,4 +312,7 @@ table tr td:first-child {
     grid-row: 2;
     transition: opacity 0.5s !important;
     overflow: auto;
+}
+#edit-selected-tooltip-buy {
+    width: 100%;
 }

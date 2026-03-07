@@ -7,6 +7,8 @@ let UNIFORM_PROJECTION = null;
 let UNIFORM_VIEW = null;
 let UNIFORM_POSITION = null;
 let CUBE_ROTATION = 0.0;
+let UID = null;
+let USER = {};
 let TALENTS = {};
 let TALENT_SELECTED = null;
 
@@ -62,7 +64,7 @@ function scaleName() {
 }
 function setName(nm) {
     let elem = document.getElementById("name");
-    if (elem && elem.firstElementChild) {
+    if (elem && elem.firstElementChild && elem.firstElementChild.innerText.toLowerCase().trim() != nm) {
         elem.firstElementChild.innerText = nm
         scaleName();
         new ResizeObserver(scaleName).observe(elem);
@@ -263,6 +265,8 @@ async function fetchUser(uid) {
     } else {
         uploadImage(`${globalThis.apiServer}/user/avatar/${uid}.png`);
         const info = await resp.json()
+        UID = uid;
+        USER = info;
         setName(info.properties["name"]);
         for (let nm in info.stats) {
             setField(nm, info.stats[nm]);
@@ -270,12 +274,12 @@ async function fetchUser(uid) {
         for (let nm in info.properties) {
             setField(nm, info.properties[nm]);
         }
+        setField("unallocated", info.stats["talentpoints"] - info.stats["allocatedtalentpoints"]);
         const badges = document.getElementById("badges");
         if (badges) {
             const badges_resp = await fetch(`${globalThis.apiServer}/user/badges/${uid}`);
             if (badges_resp.ok) {
                 const bs = await badges_resp.json();
-                console.log(bs);
                 for (let b of bs) {
                     addBadge(b);
                 }
@@ -351,6 +355,32 @@ function selectTalent(elem) {
         name.innerText = TALENTS[TALENT_SELECTED].name;
         const tooltip = document.getElementById("edit-selected-tooltip");
         tooltip.innerText = TALENTS[TALENT_SELECTED].desc;
+        const allocated = document.getElementById("edit-selected-tooltip-allocated");
+        allocated.innerText = (USER.talents[TALENT_SELECTED] || 0).toString();
+    }
+}
+async function buySelectedTalent() {
+    if (TALENT_SELECTED) {
+        const resp = await fetch(`${globalThis.secureApiServer}/talent/${TALENT_SELECTED}/purchase`, {
+            method: "POST",
+        });
+        if (resp.ok) {
+            console.log(await resp.text());
+            await fetchUser(UID);
+            const allocated = document.getElementById("edit-selected-tooltip-allocated");
+            allocated.innerText = (USER.talents[TALENT_SELECTED] || 0).toString();
+        }
+    }
+}
+async function resetTalents() {
+    const resp = await fetch(`${globalThis.secureApiServer}/talent/reset`, {
+        method: "POST",
+    });
+    if (resp.ok) {
+        console.log(await resp.text());
+        await fetchUser(UID);
+        const allocated = document.getElementById("edit-selected-tooltip-allocated");
+        allocated.innerText = "0";
     }
 }
 
@@ -363,7 +393,20 @@ globalThis.mainSecure = async () => {
     if (await fetchUser(uid)) {
         showContentsSecure();
     }
+    const buy = document.getElementById("edit-selected-tooltip-buy");
+    buy.addEventListener("click", buySelectedTalent);
+    const reset = document.getElementById("talent-reset");
+    reset.addEventListener("click", resetTalents);
     TALENTS = await fetchTalents();
-    renderTalent("bigjoel", basex + 0, basey + 0);
-    renderTalent("shaderopacity", basex + 100, basey + 0);
+    const dim = 100;
+    let x = 0;
+    let y = 0;
+    for (let tid in TALENTS) {
+        renderTalent(tid, basex + x * dim, basey + y * dim);
+        x += 1;
+        if (x > 4) {
+            x = 0;
+            y += 1;
+        }
+    }
 }

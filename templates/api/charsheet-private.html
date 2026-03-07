@@ -30,15 +30,21 @@ CONFIG_SUBST
           <div id="name" class="edit-panel">
             <h1>player unknown</h1>
             <span id="edit-mode">edit mode</span>
+            <button id="talent-reset">reset talents</button>
           </div>
           <div id="edit-infobox">
             <div class="infobox-title">Table 3: Statistical Summary</div>
             <table>
-              <tr><td>unspent points</td><td id="info-talentpoints">N/A</td></tr>
+              <tr><td>total points</td><td id="info-talentpoints">N/A</td></tr>
+              <tr><td>unallocated</td><td id="info-unallocated">N/A</td></tr>
             </table>
           </div>
           <div id="edit-selected-tooltip-box" data-skipfade="true">
             <div id="edit-selected-tooltip-name" class="infobox-title">empty</div>
+            <table>
+              <tr><td>allocated</td><td id="edit-selected-tooltip-allocated">N/A</td></tr>
+            </table>
+            <button id="edit-selected-tooltip-buy">buy now</button>
             <div id="edit-selected-tooltip">empty</div>
           </div>
         </div>
