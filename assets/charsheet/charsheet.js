@@ -274,7 +274,10 @@ async function fetchUser(uid) {
         for (let nm in info.properties) {
             setField(nm, info.properties[nm]);
         }
-        setField("unallocated", info.stats["talentpoints"] - info.stats["allocatedtalentpoints"]);
+        setField(
+            "unallocated",
+            (info.stats["talentpoints"] || 0) - (info.stats["allocatedtalentpoints"] || 0)
+        );
         const badges = document.getElementById("badges");
         if (badges) {
             const badges_resp = await fetch(`${globalThis.apiServer}/user/badges/${uid}`);
