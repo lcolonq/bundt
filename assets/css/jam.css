@@ -1,0 +1,48 @@
+#lcolonq-jam {
+    overflow: scroll;
+    text-align: justify;
+}
+
+.lcolonq-jam-cool {
+    text-transform: lowercase;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+#lcolonq-jam h1 {
+    text-align: center;
+}
+#lcolonq-jam h2 {
+    text-align: center;
+}
+#lcolonq-jam h4 {
+    margin: 0px;
+}
+#lcolonq-jam-content {
+    max-width: 34rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+                      
+.lcolonq-green {
+    color: green;
+}
+
+.lcolonq-jam-subtitle {
+    margin-top: -1.4rem;
+    text-align: center;
+    font-size: 0.8em;
+    color: darkgrey;
+}
+
+#lcolonq-jam-footer {
+    text-align: center !important;
+    font-size: 0.5em;
+    color: darkgrey;
+}

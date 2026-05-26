@@ -1,0 +1,94 @@
+/* pubnix-index */
+body.lcolonq-pubnix-index {
+    font-family: "Iosevka Comfy";
+    font-weight: bold;
+    color: black;
+    user-select: none;
+    image-rendering: pixelated;
+    background-color: #eeeeee;
+    background-size: 40px 40px;
+    background-image:
+        linear-gradient(to right, grey 1px, transparent 1px),
+        linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+
+body.lcolonq-pubnix-index-obs {
+    background-color: rbga(0,0,0,0);
+}
+
+#lcolonq-pubnix-index-title {
+    position: absolute;
+    top: 2rem;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-size: 20vw;
+}
+
+.lcolonq-pubnix-index-letter {
+    display: inline-block;
+}
+
+.lcolonq-pubnix-index-letter:hover {
+    color: #333333;
+}
+
+#lcolonq-pubnix-index-subtitle {
+    font-size: 5vw;
+    margin-top: -5vw;
+    margin-right: 12vw;
+    text-align: right;
+}
+
+#lcolonq-pubnix-index-header {
+    background-color: #cccccf;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    height: 2rem;
+    border-bottom: 0.2rem ridge;
+}
+
+#lcolonq-pubnix-index-header a {
+    color: black;
+}
+
+#lcolonq-pubnix-index-header marquee {
+    color: black;
+    padding-top: 0.4rem;
+}
+
+#lcolonq-pubnix-index-footer {
+    background-color: #cccccf;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 2rem;
+    border-top: 0.2rem groove;
+}
+
+#lcolonq-pubnix-index-footer a {
+    display: inline-block;
+    color: black;
+    margin-top: 0.2rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+    padding: 0.1rem;
+    text-decoration: none;
+    border: 0.1rem outset;
+}
+
+#lcolonq-pubnix-index-footer a:active {
+    border: 0.1rem inset;
+}
+
+#lcolonq-pubnix-index-canvas {
+    position: absolute;
+    bottom: 2rem;
+    left: 0px;
+    width: 832px;
+    height: 832px;
+}

@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Iosevka Comfy";
-    src: url("../iosevka-comfy-regular.ttf") format("truetype");
+    src: url("../fonts/iosevka-comfy-regular.ttf") format("truetype");
 }
 
 @media (max-width: 768px) {

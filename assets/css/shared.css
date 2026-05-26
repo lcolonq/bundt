@@ -1,0 +1,30 @@
+/* shared */
+@font-face {
+    font-family: "Iosevka Comfy";
+    src: url("../fonts/iosevka-comfy-regular.ttf") format("truetype");
+}
+
+html {
+    font-family: "Iosevka Comfy";
+    font-size: 16pt;
+}
+
+body {
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100%;
+    width: 100%;
+}
+
+.right {
+    float: right;
+}
+
+.lcolonq-invisible {
+    visibility: hidden;
+}
+
+.lcolonq-reverse {
+    transform: scale(-1, 1);
+}
