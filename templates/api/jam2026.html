@@ -86,13 +86,101 @@
           </li>
         </ol>
       </div>
+      <h2 id="lcolonq-jam-technical">TECHNICAL INFO</h2>
+      <div class="lcolonq-jam-subtitle">what do I need to do to make my game work?</div>
+      <div id="lcolonq-jam-technical-body">
+        <p>
+          When you submit your game, ideally you should submit an archive (ZIP or tarball) containing a folder. That folder should contain all of your game's assets, alongside an <code>index.html</code> that runs the game. Most game engine web exports will give you exactly this!
+        </p>
+        <p>
+          We recommend that games render at 240x160, but this is not a hard requirement.
+          Feel free to break/bend this rule if you like!
+        </p>
+        <p>
+          In order for things to work smoothly, you'll need your game to report when certain things have happened, and also to respond to certain requests.
+          Don't worry!
+          This is simple and easy, and we have some examples available using common tools.
+        </p>
+        <p>
+          Your game can communicate with the "harness" by calling the JavaScript function <code>window.parent.postMessage</code>. The harness will send some messages back to your game in the same way (and you can listen for them with <code>window.addEventListener("message", your_message_handler_here)</code>). If that's inconvenient, we also set certain special JavaScript variables whenever events fire, so you can poll those variables inside your game loop if it's easier.
+        <p>
+          Here's what you need to send and receive from the harness:
+        </p>
+        <ol>
+          <li>
+            <p>
+              When your game's page loads, you should load all assets and send a <b>ready</b> message to the harness:
+              <code>
+                <pre>
+  window.parent.postMessage({op: "ready"});
+                </pre>
+              </code>
+            </p>
+          </li>
+          <li>
+            <p>
+              After sending this message, wait patiently! The game has not started yet, so you shouldn't start any timers or expect the player to input anything just yet.
+            </p>
+          </li>
+          <li>
+            <p>
+              The harness will tell you that the game should <b>start</b>, and at which difficulty level.
+              You can detect this by either listening for an event, or reading a variable:
+              <code>
+                <pre>
+  window.addEventListener("message", ev => console.log(ev.data));
+  // ev.data will be {op: "start", difficulty: <some number>}
+                </pre>
+              </code>
+              or:
+              <code>
+                <pre>
+  window.lcolonqJamStart
+  // this variable will either be an integer or falsy!
+  // you can check it repeatedly in your game loop until
+  // it's an integer - that integer is the difficulty level
+                </pre>
+              </code>
+              This means that your game should start right away - you can start any timers and expect player input! You are free to interpret the difficulty number any way you like - this number will be roughly the number of previously-completed games so far in the current round.
+            </p>
+          </li>
+          <li>
+            <p>
+              When your game starts (in response to the previous message), you should let the harness know it <b>started</b> successfully:
+              <code>
+                <pre>
+  window.parent.postMessage({op: "started"});
+                </pre>
+              </code>
+            </p>
+          </li>
+          <li>
+            <p>
+              You are free to run your game! When the game is <b>done</b>, report whether the user won or lost:
+              <code>
+                <pre>
+  window.parent.postMessage({op: "done", win: true});
+                </pre>
+              </code>
+              or
+              <code>
+                <pre>
+  window.parent.postMessage({op: "done", win: false});
+                </pre>
+              </code>
+              At this point, the user will no longer be able to interact with your game. You should reset things, and be ready to run the game again fresh when you receive the <b>start</b> message. In general, you should assume that your game page could be reloaded entirely, or it could never be reloaded and receive repeated start events!
+            </p>
+          </li>
+          <li><p>That's it!</p></li>
+        </ol>
+      </div>
       <h2 id="lcolonq-jam-rules">THE RULES</h2>
       <div class="lcolonq-jam-subtitle">ok these are actual rules don't bend these ones please</div>
       <div id="lcolonq-jam-rules-body">
         <ul>
           <li>
             <p>
-              Alongside your game, please <b>submit source code</b> (either a link to a repository or actual source in an archive file). Please <b>include the open-source license</b> your are releasing your code under, as well as any licenses and attribution for any assets used.
+              Alongside your game, please <b>submit source code</b> (either a link to a repository or actual source in an archive file). Please <b>include the open-source license</b> you are releasing your code under, as well as any licenses and attribution for any assets used.
             </p>
           </li>
           <li>
@@ -114,7 +202,7 @@
       let body = document.getElementById("lcolonq-jam-details-body");
       let details = document.getElementById("lcolonq-jam-details");
       details.addEventListener("click", () => {
-      body.classList.toggle("lcolonq-jam-cool");
+          body.classList.toggle("lcolonq-jam-cool");
       });
     </script>
   </body>
