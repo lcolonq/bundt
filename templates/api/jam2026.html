@@ -150,9 +150,10 @@
               When your game starts (in response to the previous message), you should let the harness know it <b>started</b> successfully:
               <code>
                 <pre>
-  window.parent.postMessage({op: "started"});
+  window.parent.postMessage({op: "started", verb: "catch!"});
                 </pre>
               </code>
+              The <code>verb</code> field tells the harness to display a particular word as a prompt to the player as your game appears.
             </p>
           </li>
           <li>
