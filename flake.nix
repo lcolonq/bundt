@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     ps-tools.follows = "purs-nix/ps-tools";
     purs-nix.url = "github:purs-nix/purs-nix/ps-0.15";
-    newton.url = "github:lcolonq/newton";
+    newton.url = "git+ssh://git@git.colonq.computer/~/newton";
     ranch.url = "github:lcolonq/ranch";
   };
 
