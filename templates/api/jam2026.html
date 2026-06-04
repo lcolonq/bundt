@@ -100,7 +100,7 @@
         <p>
           In order for things to work smoothly, you'll need your game to report when certain things have happened, and also to respond to certain requests.
           Don't worry!
-          This is simple and easy, and we have some examples available using common tools.
+          This is simple and easy, and <a href="https://github.com/lcolonq/jam">we have some examples available using common tools</a>.
         </p>
         <p>
           Your game can communicate with the "harness" by calling the JavaScript function <code>window.parent.postMessage</code>. The harness will send some messages back to your game in the same way (and you can listen for them with <code>window.addEventListener("message", your_message_handler_here)</code>). If that's inconvenient, we also set certain special JavaScript variables whenever events fire, so you can poll those variables inside your game loop if it's easier.
