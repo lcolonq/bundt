@@ -48,9 +48,9 @@ dist/extension/assets: $(shell find assets) dist
 	cp -r assets/* $@
 
 # api
-deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/newton dist/api/deploy/ranch
+deploy_api: dist $(addprefix dist/api/deploy/,$(TEMPLATES_API)) dist/api/deploy/assets dist/api/deploy/main.js dist/api/deploy/newton dist/api/deploy/ranch dist/api/deploy/jam/2026
 
-api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/newton dist/api/test/ranch
+api: dist $(addprefix dist/api/test/,$(TEMPLATES_API)) dist/api/test/assets dist/api/test/main.js dist/api/test/newton dist/api/test/ranch dist/api/test/jam/2026
 
 dist/api/%/newton: ${NEWTON_PATH}
 	rm -rf $@
@@ -64,6 +64,13 @@ dist/api/%/ranch: ${RANCH_PATH}
 	rm -rf $@
 	mkdir -p $@
 	cp -r $</* $@/
+	chmod -R 0755 $@
+
+dist/api/%/jam/2026: ${JAM2026_NONNIX_PATH} ${JAM2026_WINDOWS_PATH}
+	rm -rf $@
+	mkdir -p $@
+	cp ${JAM2026_NONNIX_PATH}/jam_server $@/jam_server
+	cp ${JAM2026_WINDOWS_PATH}/bin/jam_server.exe $@/jam_server.exe
 	chmod -R 0755 $@
 
 dist/api/%/main.js: build/main.js dist

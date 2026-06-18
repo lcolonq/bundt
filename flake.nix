@@ -6,6 +6,7 @@
     ps-tools.follows = "purs-nix/ps-tools";
     purs-nix.url = "github:purs-nix/purs-nix/ps-0.15";
     newton.url = "git+ssh://git@git.colonq.computer/~/newton";
+    jam2026.url = "git+ssh://git@git.colonq.computer/~/jam?dir=2026";
     ranch.url = "github:lcolonq/ranch";
   };
 
@@ -18,6 +19,8 @@
 
       NEWTON_PATH = inputs.newton.packages.${system}.wasm.shader;
       RANCH_PATH = inputs.ranch.packages.${system}.wasmDeploy;
+      JAM2026_NONNIX_PATH = inputs.jam2026.packages.${system}.nonnix;
+      JAM2026_WINDOWS_PATH = inputs.jam2026.packages.${system}.windows;
 
       purescript = purs-nix.purs {
         dependencies = [
@@ -52,7 +55,7 @@
       bundleAPI = pkgs.stdenv.mkDerivation  {
         name = "bundt-bundle-api";
         src = ./.;
-        inherit NEWTON_PATH RANCH_PATH;
+        inherit NEWTON_PATH RANCH_PATH JAM2026_NONNIX_PATH JAM2026_WINDOWS_PATH;
         buildInputs = [
           pursNixCommand
           pkgs.m4
@@ -97,7 +100,7 @@
       };
     in {
       devShells.x86_64-linux.default = pkgs.mkShell {
-        inherit NEWTON_PATH RANCH_PATH;
+        inherit NEWTON_PATH RANCH_PATH JAM2026_NONNIX_PATH JAM2026_WINDOWS_PATH;
         buildInputs = [
           pkgs.nodejs
           pursNixCommand
